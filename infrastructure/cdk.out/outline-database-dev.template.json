@@ -1,0 +1,711 @@
+{
+ "Description": "Database infrastructure for Outline application",
+ "Resources": {
+  "outlinedatabasesecretB873BCEC": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": "Database credentials for Outline application",
+    "GenerateSecretString": {
+     "ExcludeCharacters": "\"@/\\",
+     "GenerateStringKey": "password",
+     "PasswordLength": 32,
+     "SecretStringTemplate": "{\"username\": \"outline\"}"
+    },
+    "Name": "outline-dev-database-credentials",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-database-secret"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "DatabaseCredentials"
+     },
+     {
+      "Key": "Type",
+      "Value": "Secret"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "outline-database-dev/outline-database-secret/Resource"
+   }
+  },
+  "outlinedatabasesecretAttachment06F3514B": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "outlinedatabasesecretB873BCEC"
+    },
+    "TargetId": {
+     "Ref": "outlinedatabase732CEEF3"
+    },
+    "TargetType": "AWS::RDS::DBInstance"
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-database-dev/outline-database-secret/Attachment/Resource"
+   }
+  },
+  "outlineredissecret64518DF6": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": "Redis connection URL for outline dev environment",
+    "GenerateSecretString": {
+     "ExcludeCharacters": "\"@/\\",
+     "GenerateStringKey": "password",
+     "SecretStringTemplate": "{\"url\": \"redis://\"}"
+    },
+    "Name": "outline-dev-redis-credentials",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-redis-secret"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "RedisCredentials"
+     },
+     {
+      "Key": "Type",
+      "Value": "Secret"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "outline-database-dev/outline-redis-secret/Resource"
+   }
+  },
+  "outlinedatabasesubnetgroup": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnet group for outline database",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "outline-network-dev:ExportsOutputRefoutlinevpcpublicSubnet1Subnet0C06FBB7355427B6"
+     },
+     {
+      "Fn::ImportValue": "outline-network-dev:ExportsOutputRefoutlinevpcpublicSubnet2Subnet6D8E53AA733B1EE1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-database-subnet-group"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "SubnetGroup"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "outline-database-dev/outline-database-subnet-group/Default"
+   }
+  },
+  "outlinedatabaseparametergroup865B3C26": {
+   "Type": "AWS::RDS::DBParameterGroup",
+   "Properties": {
+    "Description": "Parameter group for postgres16",
+    "Family": "postgres16",
+    "Parameters": {
+     "timezone": "UTC",
+     "log_statement": "all",
+     "log_min_duration_statement": "1000"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-database-parameter-group"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "ParameterGroup"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-database-dev/outline-database-parameter-group/Resource"
+   }
+  },
+  "outlinedatabaseMonitoringRole36F0397F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "monitoring.rds.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Engine",
+      "Value": "PostgreSQL"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-database"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "Database"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-database-dev/outline-database/MonitoringRole/Resource"
+   }
+  },
+  "outlinedatabase732CEEF3": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "AllocatedStorage": "20",
+    "AutoMinorVersionUpgrade": true,
+    "BackupRetentionPeriod": 7,
+    "CopyTagsToSnapshot": true,
+    "DBInstanceClass": "db.t3.micro",
+    "DBInstanceIdentifier": "outline-dev-database",
+    "DBName": "outline",
+    "DBParameterGroupName": {
+     "Ref": "outlinedatabaseparametergroup865B3C26"
+    },
+    "DBSubnetGroupName": {
+     "Ref": "outlinedatabasesubnetgroup"
+    },
+    "DeleteAutomatedBackups": true,
+    "DeletionProtection": false,
+    "EnablePerformanceInsights": true,
+    "Engine": "postgres",
+    "EngineVersion": "16.3",
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "outlinedatabasesecretB873BCEC"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "outlinedatabasesecretB873BCEC"
+       },
+       ":SecretString:username::}}"
+      ]
+     ]
+    },
+    "MaxAllocatedStorage": 100,
+    "MonitoringInterval": 60,
+    "MonitoringRoleArn": {
+     "Fn::GetAtt": [
+      "outlinedatabaseMonitoringRole36F0397F",
+      "Arn"
+     ]
+    },
+    "PerformanceInsightsRetentionPeriod": 7,
+    "Port": "5432",
+    "PubliclyAccessible": true,
+    "StorageEncrypted": true,
+    "StorageType": "gp3",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Engine",
+      "Value": "PostgreSQL"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-database"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "Database"
+     }
+    ],
+    "VPCSecurityGroups": [
+     {
+      "Fn::ImportValue": "outline-network-dev:ExportsOutputFnGetAttoutlinedatabasesgB75175DCGroupId12A46B98"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "outline-database-dev/outline-database/Resource"
+   }
+  },
+  "outlineredissubnetgroup": {
+   "Type": "AWS::ElastiCache::SubnetGroup",
+   "Properties": {
+    "CacheSubnetGroupName": "outline-dev-redis-subnet-group",
+    "Description": "Subnet group for outline Redis cluster",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "outline-network-dev:ExportsOutputRefoutlinevpcprivateSubnet1Subnet4D9F37CF37353BBA"
+     },
+     {
+      "Fn::ImportValue": "outline-network-dev:ExportsOutputRefoutlinevpcprivateSubnet2Subnet4293B755DEFD7C94"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-redis-subnet-group"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "SubnetGroup"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-database-dev/outline-redis-subnet-group"
+   }
+  },
+  "outlinerediscluster": {
+   "Type": "AWS::ElastiCache::CacheCluster",
+   "Properties": {
+    "AutoMinorVersionUpgrade": true,
+    "CacheNodeType": "cache.t3.micro",
+    "CacheParameterGroupName": "default.redis7",
+    "CacheSubnetGroupName": {
+     "Ref": "outlineredissubnetgroup"
+    },
+    "ClusterName": "outline-dev-redis",
+    "Engine": "redis",
+    "NumCacheNodes": 1,
+    "Port": 6379,
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Engine",
+      "Value": "Redis"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-redis"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "CacheCluster"
+     }
+    ],
+    "VpcSecurityGroupIds": [
+     {
+      "Fn::ImportValue": "outline-network-dev:ExportsOutputFnGetAttoutlineredissg41BB06A6GroupId79FD4695"
+     }
+    ]
+   },
+   "DependsOn": [
+    "outlineredissubnetgroup"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "outline-database-dev/outline-redis-cluster"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12OQWvCQBCFf4v3zbRWBK9tBOlJSbyXyTo1a7IbmZlFZNn/XmJaSD29ee97DO8NlpsVvC7wJoU9dUXvGki1ou0M3uQrCVkmFY8Bz8SQ6oc35Xf4vSY5Ip9J31XRtp7CrPBMsuGTQKpjE0h3PMTr2N1+zIMDMnpS4hl/yrao2KDQZxDFYGkq/blsHHpI1dA/wKjZUI+izqJtCdK47/+EcgRlH0WJczYVyRB5eryPeo2azeGu7RBeVrCB5XpxEecKjkGdJ6gm/QHy2PFrTwEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-database-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "DatabaseEndpoint": {
+   "Description": "RDS PostgreSQL endpoint",
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinedatabase732CEEF3",
+     "Endpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-database-endpoint"
+   }
+  },
+  "DatabasePort": {
+   "Description": "RDS PostgreSQL port",
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinedatabase732CEEF3",
+     "Endpoint.Port"
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-database-port"
+   }
+  },
+  "DatabaseSecretArn": {
+   "Description": "RDS PostgreSQL secret ARN",
+   "Value": {
+    "Ref": "outlinedatabasesecretB873BCEC"
+   },
+   "Export": {
+    "Name": "outline-dev-database-secret-arn"
+   }
+  },
+  "RedisSecretArn": {
+   "Description": "Redis secret ARN",
+   "Value": {
+    "Ref": "outlineredissecret64518DF6"
+   },
+   "Export": {
+    "Name": "outline-dev-redis-secret-arn"
+   }
+  },
+  "RedisEndpoint": {
+   "Description": "ElastiCache Redis endpoint",
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinerediscluster",
+     "RedisEndpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-redis-endpoint"
+   }
+  },
+  "RedisPort": {
+   "Description": "ElastiCache Redis port",
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinerediscluster",
+     "RedisEndpoint.Port"
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-redis-port"
+   }
+  },
+  "DatabaseCredentials": {
+   "Description": "Database credentials for dev environment",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "Username: outline, Password: Check AWS Secrets Manager - ",
+      {
+       "Ref": "outlinedatabasesecretB873BCEC"
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-database-credentials"
+   }
+  },
+  "ExportsOutputRefoutlinedatabasesecretB873BCEC00BC222E": {
+   "Value": {
+    "Ref": "outlinedatabasesecretB873BCEC"
+   },
+   "Export": {
+    "Name": "outline-database-dev:ExportsOutputRefoutlinedatabasesecretB873BCEC00BC222E"
+   }
+  },
+  "ExportsOutputFnGetAttoutlineredisclusterRedisEndpointAddress21449EA8": {
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinerediscluster",
+     "RedisEndpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "outline-database-dev:ExportsOutputFnGetAttoutlineredisclusterRedisEndpointAddress21449EA8"
+   }
+  },
+  "ExportsOutputFnGetAttoutlineredisclusterRedisEndpointPort43CACC26": {
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinerediscluster",
+     "RedisEndpoint.Port"
+    ]
+   },
+   "Export": {
+    "Name": "outline-database-dev:ExportsOutputFnGetAttoutlineredisclusterRedisEndpointPort43CACC26"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

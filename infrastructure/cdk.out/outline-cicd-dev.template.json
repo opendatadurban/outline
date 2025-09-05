@@ -1,0 +1,1279 @@
+{
+ "Description": "CI/CD pipeline for Outline application",
+ "Resources": {
+  "outlinerepository74C23DCD": {
+   "Type": "AWS::ECR::Repository",
+   "Properties": {
+    "ImageScanningConfiguration": {
+     "ScanOnPush": true
+    },
+    "LifecyclePolicy": {
+     "LifecyclePolicyText": "{\"rules\":[{\"rulePriority\":1,\"description\":\"Keep only recent images\",\"selection\":{\"tagStatus\":\"any\",\"countType\":\"imageCountMoreThan\",\"countNumber\":10},\"action\":{\"type\":\"expire\"}}]}"
+    },
+    "RepositoryName": "outline-dev",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-ecr-repo"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "ECRRepository"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-repository/Resource"
+   }
+  },
+  "outlinecodebuildlogs323DA7A5": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/aws/codebuild/outline-dev",
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-codebuild-logs"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "LogGroup"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-codebuild-logs/Resource"
+   }
+  },
+  "outlinecodebuildservicerole65BEF9A0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "codebuild.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSCodeBuildServiceRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-codebuild-role"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "IAMRole"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-codebuild-service-role/Resource"
+   }
+  },
+  "outlinecodebuildserviceroleDefaultPolicy5BCF1357": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:CompleteLayerUpload",
+        "ecr:GetAuthorizationToken",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:InitiateLayerUpload",
+        "ecr:PutImage",
+        "ecr:UploadLayerPart",
+        "ecs:DescribeServices",
+        "ecs:DescribeTaskDefinition",
+        "ecs:DescribeTasks",
+        "ecs:ListTasks",
+        "ecs:RegisterTaskDefinition",
+        "ecs:UpdateService",
+        "iam:PassRole"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "outlinecodebuildlogs323DA7A5",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:logs:us-east-2:530374903628:log-group:/aws/codebuild/",
+           {
+            "Ref": "outlinecodebuildproject45A97EDF"
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:logs:us-east-2:530374903628:log-group:/aws/codebuild/",
+           {
+            "Ref": "outlinecodebuildproject45A97EDF"
+           }
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "codebuild:BatchPutCodeCoverages",
+        "codebuild:BatchPutTestCases",
+        "codebuild:CreateReport",
+        "codebuild:CreateReportGroup",
+        "codebuild:UpdateReport"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:codebuild:us-east-2:530374903628:report-group/",
+          {
+           "Ref": "outlinecodebuildproject45A97EDF"
+          },
+          "-*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "outlinepipelineArtifactsBucket0B7E7473",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "outlinepipelineArtifactsBucket0B7E7473",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "outlinecodebuildserviceroleDefaultPolicy5BCF1357",
+    "Roles": [
+     {
+      "Ref": "outlinecodebuildservicerole65BEF9A0"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-codebuild-service-role/DefaultPolicy/Resource"
+   }
+  },
+  "outlinecodebuildproject45A97EDF": {
+   "Type": "AWS::CodeBuild::Project",
+   "Properties": {
+    "Artifacts": {
+     "Type": "NO_ARTIFACTS"
+    },
+    "Cache": {
+     "Modes": [
+      "LOCAL_DOCKER_LAYER_CACHE"
+     ],
+     "Type": "LOCAL"
+    },
+    "Description": "CodeBuild project for outline dev",
+    "EncryptionKey": "alias/aws/s3",
+    "Environment": {
+     "ComputeType": "BUILD_GENERAL1_SMALL",
+     "EnvironmentVariables": [
+      {
+       "Name": "ENVIRONMENT",
+       "Type": "PLAINTEXT",
+       "Value": "dev"
+      },
+      {
+       "Name": "PROJECT_NAME",
+       "Type": "PLAINTEXT",
+       "Value": "outline"
+      },
+      {
+       "Name": "AWS_DEFAULT_REGION",
+       "Type": "PLAINTEXT",
+       "Value": "us-east-2"
+      }
+     ],
+     "Image": "aws/codebuild/amazonlinux2-x86_64-standard:4.0",
+     "ImagePullCredentialsType": "CODEBUILD",
+     "PrivilegedMode": true,
+     "Type": "LINUX_CONTAINER"
+    },
+    "LogsConfig": {
+     "CloudWatchLogs": {
+      "GroupName": {
+       "Ref": "outlinecodebuildlogs323DA7A5"
+      },
+      "Status": "ENABLED",
+      "StreamName": "build-log"
+     }
+    },
+    "Name": "outline-dev-build",
+    "ServiceRole": {
+     "Fn::GetAtt": [
+      "outlinecodebuildservicerole65BEF9A0",
+      "Arn"
+     ]
+    },
+    "Source": {
+     "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"pre_build\": {\n      \"commands\": [\n        \"echo Logging in to Amazon ECR...\",\n        \"aws --version\",\n        \"aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com\",\n        \"REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$PROJECT_NAME-$ENVIRONMENT\",\n        \"COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)\",\n        \"IMAGE_TAG=${COMMIT_HASH:=latest}\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"echo Build started on `date`\",\n        \"echo Building the Docker image...\",\n        \"docker build -t $PROJECT_NAME-$ENVIRONMENT .\",\n        \"docker tag $PROJECT_NAME-$ENVIRONMENT:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG\",\n        \"docker tag $PROJECT_NAME-$ENVIRONMENT:$IMAGE_TAG $REPOSITORY_URI:latest\"\n      ]\n    },\n    \"post_build\": {\n      \"commands\": [\n        \"echo Build completed on `date`\",\n        \"echo Pushing the Docker image...\",\n        \"docker push $REPOSITORY_URI:$IMAGE_TAG\",\n        \"docker push $REPOSITORY_URI:latest\",\n        \"echo Writing image definitions file...\",\n        \"printf '[{\\\"name\\\":\\\"%s\\\",\\\"imageUri\\\":\\\"%s\\\"}]' $PROJECT_NAME-$ENVIRONMENT $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"files\": [\n      \"imagedefinitions.json\"\n    ]\n  }\n}",
+     "Type": "NO_SOURCE"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-codebuild-project"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "CodeBuildProject"
+     }
+    ],
+    "TimeoutInMinutes": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-codebuild-project/Resource"
+   }
+  },
+  "outlinecodecommitrepooutlinecicddevoutlinepipeline8AE70085mainEventRule6A7DA2B1": {
+   "Type": "AWS::Events::Rule",
+   "Properties": {
+    "EventPattern": {
+     "source": [
+      "aws.codecommit"
+     ],
+     "resources": [
+      "arn:aws:codecommit:us-east-2:530374903628:outline-dev"
+     ],
+     "detail-type": [
+      "CodeCommit Repository State Change"
+     ],
+     "detail": {
+      "event": [
+       "referenceCreated",
+       "referenceUpdated"
+      ],
+      "referenceName": [
+       "main"
+      ]
+     }
+    },
+    "State": "ENABLED",
+    "Targets": [
+     {
+      "Arn": {
+       "Fn::Join": [
+        "",
+        [
+         "arn:aws:codepipeline:us-east-2:530374903628:",
+         {
+          "Ref": "outlinepipeline66DFBBCD"
+         }
+        ]
+       ]
+      },
+      "Id": "Target0",
+      "RoleArn": {
+       "Fn::GetAtt": [
+        "outlinepipelineEventsRole308D37B5",
+        "Arn"
+       ]
+      }
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-codecommit-repo/outlinecicddevoutlinepipeline8AE70085-main-EventRule/Resource"
+   }
+  },
+  "outlinepipelineArtifactsBucket0B7E7473": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "aws:kms"
+       }
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-pipeline"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "CodePipeline"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-pipeline/ArtifactsBucket/Resource"
+   }
+  },
+  "outlinepipelineArtifactsBucketPolicy94008835": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "outlinepipelineArtifactsBucket0B7E7473"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "outlinepipelineArtifactsBucket0B7E7473",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "outlinepipelineArtifactsBucket0B7E7473",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-pipeline/ArtifactsBucket/Policy/Resource"
+   }
+  },
+  "outlinepipelineRole0CCFE4B3": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "codepipeline.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-pipeline"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "CodePipeline"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-pipeline/Role/Resource"
+   }
+  },
+  "outlinepipelineRoleDefaultPolicyB5D6CAAE": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "outlinepipelineArtifactsBucket0B7E7473",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "outlinepipelineArtifactsBucket0B7E7473",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "outlinepipelineBuildCodePipelineActionRole459F759F",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "outlinepipelineSourceCodePipelineActionRole1A6F7B99",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "codebuild:BatchGetBuilds",
+        "codebuild:StartBuild"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "outlinecodebuildproject45A97EDF",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "outlinepipelineRoleDefaultPolicyB5D6CAAE",
+    "Roles": [
+     {
+      "Ref": "outlinepipelineRole0CCFE4B3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-pipeline/Role/DefaultPolicy/Resource"
+   }
+  },
+  "outlinepipeline66DFBBCD": {
+   "Type": "AWS::CodePipeline::Pipeline",
+   "Properties": {
+    "ArtifactStore": {
+     "Location": {
+      "Ref": "outlinepipelineArtifactsBucket0B7E7473"
+     },
+     "Type": "S3"
+    },
+    "Name": "outline-dev-pipeline",
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "outlinepipelineRole0CCFE4B3",
+      "Arn"
+     ]
+    },
+    "Stages": [
+     {
+      "Actions": [
+       {
+        "ActionTypeId": {
+         "Category": "Source",
+         "Owner": "AWS",
+         "Provider": "CodeCommit",
+         "Version": "1"
+        },
+        "Configuration": {
+         "RepositoryName": "outline-dev",
+         "BranchName": "main",
+         "PollForSourceChanges": false
+        },
+        "Name": "Source",
+        "OutputArtifacts": [
+         {
+          "Name": "SourceArtifact"
+         }
+        ],
+        "RoleArn": {
+         "Fn::GetAtt": [
+          "outlinepipelineSourceCodePipelineActionRole1A6F7B99",
+          "Arn"
+         ]
+        },
+        "RunOrder": 1
+       }
+      ],
+      "Name": "Source"
+     },
+     {
+      "Actions": [
+       {
+        "ActionTypeId": {
+         "Category": "Build",
+         "Owner": "AWS",
+         "Provider": "CodeBuild",
+         "Version": "1"
+        },
+        "Configuration": {
+         "ProjectName": {
+          "Ref": "outlinecodebuildproject45A97EDF"
+         },
+         "EnvironmentVariables": "[{\"name\":\"AWS_ACCOUNT_ID\",\"type\":\"PLAINTEXT\",\"value\":\"530374903628\"}]"
+        },
+        "InputArtifacts": [
+         {
+          "Name": "SourceArtifact"
+         }
+        ],
+        "Name": "Build",
+        "OutputArtifacts": [
+         {
+          "Name": "BuildArtifact"
+         }
+        ],
+        "RoleArn": {
+         "Fn::GetAtt": [
+          "outlinepipelineBuildCodePipelineActionRole459F759F",
+          "Arn"
+         ]
+        },
+        "RunOrder": 1
+       }
+      ],
+      "Name": "Build"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-pipeline"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "CodePipeline"
+     }
+    ]
+   },
+   "DependsOn": [
+    "outlinepipelineRoleDefaultPolicyB5D6CAAE",
+    "outlinepipelineRole0CCFE4B3"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-pipeline/Resource"
+   }
+  },
+  "outlinepipelineSourceCodePipelineActionRole1A6F7B99": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": "arn:aws:iam::530374903628:root"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-pipeline"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "CodePipeline"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/Resource"
+   }
+  },
+  "outlinepipelineSourceCodePipelineActionRoleDefaultPolicy028C2194": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "outlinepipelineArtifactsBucket0B7E7473",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "outlinepipelineArtifactsBucket0B7E7473",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "codecommit:CancelUploadArchive",
+        "codecommit:GetBranch",
+        "codecommit:GetCommit",
+        "codecommit:GetUploadArchiveStatus",
+        "codecommit:UploadArchive"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:codecommit:us-east-2:530374903628:outline-dev"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "outlinepipelineSourceCodePipelineActionRoleDefaultPolicy028C2194",
+    "Roles": [
+     {
+      "Ref": "outlinepipelineSourceCodePipelineActionRole1A6F7B99"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/DefaultPolicy/Resource"
+   }
+  },
+  "outlinepipelineEventsRole308D37B5": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "events.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-pipeline"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "CodePipeline"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-pipeline/EventsRole/Resource"
+   }
+  },
+  "outlinepipelineEventsRoleDefaultPolicyA8376067": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "codepipeline:StartPipelineExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:codepipeline:us-east-2:530374903628:",
+          {
+           "Ref": "outlinepipeline66DFBBCD"
+          }
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "outlinepipelineEventsRoleDefaultPolicyA8376067",
+    "Roles": [
+     {
+      "Ref": "outlinepipelineEventsRole308D37B5"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-pipeline/EventsRole/DefaultPolicy/Resource"
+   }
+  },
+  "outlinepipelineBuildCodePipelineActionRole459F759F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": "arn:aws:iam::530374903628:root"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-pipeline"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "CodePipeline"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/Resource"
+   }
+  },
+  "outlinepipelineBuildCodePipelineActionRoleDefaultPolicy53883B80": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "codebuild:BatchGetBuilds",
+        "codebuild:StartBuild",
+        "codebuild:StopBuild"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "outlinecodebuildproject45A97EDF",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "outlinepipelineBuildCodePipelineActionRoleDefaultPolicy53883B80",
+    "Roles": [
+     {
+      "Ref": "outlinepipelineBuildCodePipelineActionRole459F759F"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/DefaultPolicy/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02O3WoCMRCFn8X77LS6CF63F70puMQHKGt2aseNmZCfigx5dzHZYq/ONxzOx2xgvevhdTVeY2emubN0BDmk0cxqvMYvQRNANHqOlDjc1Pu3e15FWT5FkE8+fQTO/tH+cVE0XkA0W6yjRw5syVRHo6IMT3jMZCeQIfAZTaptw6LwF12KIDovlmyxjTx5tOQQZFioDhcuKvYgb9nMWIULtXh+8f8uRWmMnIOppn1OPqeihlv6YffSww7W29U5EnUhu0QXBN3yDu9E1SNCAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-cicd-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "CodeBuildProjectName": {
+   "Description": "CodeBuild Project Name",
+   "Value": {
+    "Ref": "outlinecodebuildproject45A97EDF"
+   },
+   "Export": {
+    "Name": "outline-dev-codebuild-project-name"
+   }
+  },
+  "CodePipelineName": {
+   "Description": "CodePipeline Name",
+   "Value": {
+    "Ref": "outlinepipeline66DFBBCD"
+   },
+   "Export": {
+    "Name": "outline-dev-codepipeline-name"
+   }
+  },
+  "CodePipelineUrl": {
+   "Description": "CodePipeline Console URL",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://us-east-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/",
+      {
+       "Ref": "outlinepipeline66DFBBCD"
+      },
+      "/view"
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-codepipeline-url"
+   }
+  },
+  "ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF": {
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinerepository74C23DCD",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
+   }
+  },
+  "ExportsOutputRefoutlinerepository74C23DCD7197F1BE": {
+   "Value": {
+    "Ref": "outlinerepository74C23DCD"
+   },
+   "Export": {
+    "Name": "outline-cicd-dev:ExportsOutputRefoutlinerepository74C23DCD7197F1BE"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

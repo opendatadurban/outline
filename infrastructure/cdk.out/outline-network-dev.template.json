@@ -1,0 +1,2232 @@
+{
+ "Description": "Network infrastructure for Outline application",
+ "Resources": {
+  "outlinevpc4D23A21F": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-vpc"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/Resource"
+   }
+  },
+  "outlinevpcpublicSubnet1Subnet0C06FBB7": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-2a",
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/publicSubnet1"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/publicSubnet1/Subnet"
+   }
+  },
+  "outlinevpcpublicSubnet1RouteTableAA59FCB9": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/publicSubnet1"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/publicSubnet1/RouteTable"
+   }
+  },
+  "outlinevpcpublicSubnet1RouteTableAssociationC25C3DD2": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "outlinevpcpublicSubnet1RouteTableAA59FCB9"
+    },
+    "SubnetId": {
+     "Ref": "outlinevpcpublicSubnet1Subnet0C06FBB7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/publicSubnet1/RouteTableAssociation"
+   }
+  },
+  "outlinevpcpublicSubnet1DefaultRoute082E4FD0": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "outlinevpcIGW5DCD5E6F"
+    },
+    "RouteTableId": {
+     "Ref": "outlinevpcpublicSubnet1RouteTableAA59FCB9"
+    }
+   },
+   "DependsOn": [
+    "outlinevpcVPCGW8DAE0505"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/publicSubnet1/DefaultRoute"
+   }
+  },
+  "outlinevpcpublicSubnet1EIP52E9A540": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/publicSubnet1"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/publicSubnet1/EIP"
+   }
+  },
+  "outlinevpcpublicSubnet1NATGateway02B890EE": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "outlinevpcpublicSubnet1EIP52E9A540",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "outlinevpcpublicSubnet1Subnet0C06FBB7"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/publicSubnet1"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ]
+   },
+   "DependsOn": [
+    "outlinevpcpublicSubnet1DefaultRoute082E4FD0",
+    "outlinevpcpublicSubnet1RouteTableAssociationC25C3DD2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/publicSubnet1/NATGateway"
+   }
+  },
+  "outlinevpcpublicSubnet2Subnet6D8E53AA": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-2b",
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/publicSubnet2"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/publicSubnet2/Subnet"
+   }
+  },
+  "outlinevpcpublicSubnet2RouteTableA23C7031": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/publicSubnet2"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/publicSubnet2/RouteTable"
+   }
+  },
+  "outlinevpcpublicSubnet2RouteTableAssociationA431DCBE": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "outlinevpcpublicSubnet2RouteTableA23C7031"
+    },
+    "SubnetId": {
+     "Ref": "outlinevpcpublicSubnet2Subnet6D8E53AA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/publicSubnet2/RouteTableAssociation"
+   }
+  },
+  "outlinevpcpublicSubnet2DefaultRoute48A19E4C": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "outlinevpcIGW5DCD5E6F"
+    },
+    "RouteTableId": {
+     "Ref": "outlinevpcpublicSubnet2RouteTableA23C7031"
+    }
+   },
+   "DependsOn": [
+    "outlinevpcVPCGW8DAE0505"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/publicSubnet2/DefaultRoute"
+   }
+  },
+  "outlinevpcprivateSubnet1Subnet4D9F37CF": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-2a",
+    "CidrBlock": "10.0.2.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/privateSubnet1"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/privateSubnet1/Subnet"
+   }
+  },
+  "outlinevpcprivateSubnet1RouteTableC0A6877A": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/privateSubnet1"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/privateSubnet1/RouteTable"
+   }
+  },
+  "outlinevpcprivateSubnet1RouteTableAssociationC9EAD291": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "outlinevpcprivateSubnet1RouteTableC0A6877A"
+    },
+    "SubnetId": {
+     "Ref": "outlinevpcprivateSubnet1Subnet4D9F37CF"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/privateSubnet1/RouteTableAssociation"
+   }
+  },
+  "outlinevpcprivateSubnet1DefaultRouteDF163F47": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "outlinevpcpublicSubnet1NATGateway02B890EE"
+    },
+    "RouteTableId": {
+     "Ref": "outlinevpcprivateSubnet1RouteTableC0A6877A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/privateSubnet1/DefaultRoute"
+   }
+  },
+  "outlinevpcprivateSubnet2Subnet4293B755": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-2b",
+    "CidrBlock": "10.0.3.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/privateSubnet2"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/privateSubnet2/Subnet"
+   }
+  },
+  "outlinevpcprivateSubnet2RouteTable1EDA65C3": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/privateSubnet2"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/privateSubnet2/RouteTable"
+   }
+  },
+  "outlinevpcprivateSubnet2RouteTableAssociation24C29BCA": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "outlinevpcprivateSubnet2RouteTable1EDA65C3"
+    },
+    "SubnetId": {
+     "Ref": "outlinevpcprivateSubnet2Subnet4293B755"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/privateSubnet2/RouteTableAssociation"
+   }
+  },
+  "outlinevpcprivateSubnet2DefaultRoute08145EBA": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "outlinevpcpublicSubnet1NATGateway02B890EE"
+    },
+    "RouteTableId": {
+     "Ref": "outlinevpcprivateSubnet2RouteTable1EDA65C3"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/privateSubnet2/DefaultRoute"
+   }
+  },
+  "outlinevpcisolatedSubnet1Subnet75EA1C35": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-2a",
+    "CidrBlock": "10.0.4.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "isolated"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/isolatedSubnet1"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/isolatedSubnet1/Subnet"
+   }
+  },
+  "outlinevpcisolatedSubnet1RouteTable1C5E72A9": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/isolatedSubnet1"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/isolatedSubnet1/RouteTable"
+   }
+  },
+  "outlinevpcisolatedSubnet1RouteTableAssociationD4C1E6AF": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "outlinevpcisolatedSubnet1RouteTable1C5E72A9"
+    },
+    "SubnetId": {
+     "Ref": "outlinevpcisolatedSubnet1Subnet75EA1C35"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/isolatedSubnet1/RouteTableAssociation"
+   }
+  },
+  "outlinevpcisolatedSubnet2SubnetA4CA995F": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-2b",
+    "CidrBlock": "10.0.5.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "isolated"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/isolatedSubnet2"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/isolatedSubnet2/Subnet"
+   }
+  },
+  "outlinevpcisolatedSubnet2RouteTable888B8F34": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-network-dev/outline-vpc/isolatedSubnet2"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/isolatedSubnet2/RouteTable"
+   }
+  },
+  "outlinevpcisolatedSubnet2RouteTableAssociationB12E322B": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "outlinevpcisolatedSubnet2RouteTable888B8F34"
+    },
+    "SubnetId": {
+     "Ref": "outlinevpcisolatedSubnet2SubnetA4CA995F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/isolatedSubnet2/RouteTableAssociation"
+   }
+  },
+  "outlinevpcIGW5DCD5E6F": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-vpc"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/IGW"
+   }
+  },
+  "outlinevpcVPCGW8DAE0505": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "outlinevpcIGW5DCD5E6F"
+    },
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/VPCGW"
+   }
+  },
+  "outlinevpcRestrictDefaultSecurityGroupCustomResource5BB5C414": {
+   "Type": "Custom::VpcRestrictDefaultSG",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E",
+      "Arn"
+     ]
+    },
+    "DefaultSecurityGroupId": {
+     "Fn::GetAtt": [
+      "outlinevpc4D23A21F",
+      "DefaultSecurityGroup"
+     ]
+    },
+    "Account": "530374903628"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-vpc/RestrictDefaultSecurityGroupCustomResource/Default"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Effect": "Allow",
+         "Action": [
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupIngress",
+          "ec2:RevokeSecurityGroupEgress"
+         ],
+         "Resource": [
+          {
+           "Fn::Join": [
+            "",
+            [
+             "arn:aws:ec2:us-east-2:530374903628:security-group/",
+             {
+              "Fn::GetAtt": [
+               "outlinevpc4D23A21F",
+               "DefaultSecurityGroup"
+              ]
+             }
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-530374903628-us-east-2",
+     "S3Key": "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "__entrypoint__.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs20.x",
+    "Description": "Lambda function for removing all inbound/outbound rules from the VPC default security group"
+   },
+   "DependsOn": [
+    "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200",
+    "aws:asset:property": "Code"
+   }
+  },
+  "outlinealbsg041EADD6": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for Application Load Balancer",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow HTTP from internet",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow HTTPS from internet",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-outline-alb-sg"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "SecurityGroup"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-alb-sg/Resource"
+   }
+  },
+  "outlineecssg1A19D7F0": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for ECS tasks",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-outline-ecs-sg"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "SecurityGroup"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-ecs-sg/Resource"
+   }
+  },
+  "outlineecssgfromoutlinenetworkdevoutlinealbsgED72AF4F3000791F47D6": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Allow traffic from ALB to ECS tasks",
+    "FromPort": 3000,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "outlineecssg1A19D7F0",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "outlinealbsg041EADD6",
+      "GroupId"
+     ]
+    },
+    "ToPort": 3000
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-ecs-sg/from outlinenetworkdevoutlinealbsgED72AF4F:3000"
+   }
+  },
+  "outlinedatabasesgB75175DC": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for RDS database",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow PostgreSQL access from internet (dev only)",
+      "FromPort": 5432,
+      "IpProtocol": "tcp",
+      "ToPort": 5432
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-outline-database-sg"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "SecurityGroup"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-database-sg/Resource"
+   }
+  },
+  "outlinedatabasesgfromoutlinenetworkdevoutlineecssgBD72DC3C543292E29092": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Allow PostgreSQL access from ECS tasks",
+    "FromPort": 5432,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "outlinedatabasesgB75175DC",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "outlineecssg1A19D7F0",
+      "GroupId"
+     ]
+    },
+    "ToPort": 5432
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-database-sg/from outlinenetworkdevoutlineecssgBD72DC3C:5432"
+   }
+  },
+  "outlineredissg41BB06A6": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for ElastiCache Redis",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-outline-redis-sg"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "SecurityGroup"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-redis-sg/Resource"
+   }
+  },
+  "outlineredissgfromoutlinenetworkdevoutlineecssgBD72DC3C63797B8F7FF4": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Allow Redis access from ECS tasks",
+    "FromPort": 6379,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "outlineredissg41BB06A6",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "outlineecssg1A19D7F0",
+      "GroupId"
+     ]
+    },
+    "ToPort": 6379
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-redis-sg/from outlinenetworkdevoutlineecssgBD72DC3C:6379"
+   }
+  },
+  "outlines3endpoint860B1EF2": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "RouteTableIds": [
+     {
+      "Ref": "outlinevpcprivateSubnet1RouteTableC0A6877A"
+     },
+     {
+      "Ref": "outlinevpcprivateSubnet2RouteTable1EDA65C3"
+     },
+     {
+      "Ref": "outlinevpcpublicSubnet1RouteTableAA59FCB9"
+     },
+     {
+      "Ref": "outlinevpcpublicSubnet2RouteTableA23C7031"
+     },
+     {
+      "Ref": "outlinevpcisolatedSubnet1RouteTable1C5E72A9"
+     },
+     {
+      "Ref": "outlinevpcisolatedSubnet2RouteTable888B8F34"
+     }
+    ],
+    "ServiceName": {
+     "Fn::Join": [
+      "",
+      [
+       "com.amazonaws.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".s3"
+      ]
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-s3-endpoint"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPCEndpoint"
+     }
+    ],
+    "VpcEndpointType": "Gateway",
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-s3-endpoint/Resource"
+   }
+  },
+  "outlineecrendpointSecurityGroup69B89A9A": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "outline-network-dev/outline-ecr-endpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "outlinevpc4D23A21F",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "outlinevpc4D23A21F",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-ecr-endpoint"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPCEndpoint"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-ecr-endpoint/SecurityGroup/Resource"
+   }
+  },
+  "outlineecrendpoint445602EC": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "outlineecrendpointSecurityGroup69B89A9A",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-2.ecr.api",
+    "SubnetIds": [
+     {
+      "Ref": "outlinevpcprivateSubnet1Subnet4D9F37CF"
+     },
+     {
+      "Ref": "outlinevpcprivateSubnet2Subnet4293B755"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-ecr-endpoint"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPCEndpoint"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-ecr-endpoint/Resource"
+   }
+  },
+  "outlineecrdockerendpointSecurityGroup753C2709": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "outline-network-dev/outline-ecr-docker-endpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "outlinevpc4D23A21F",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "outlinevpc4D23A21F",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-ecr-docker-endpoint"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPCEndpoint"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-ecr-docker-endpoint/SecurityGroup/Resource"
+   }
+  },
+  "outlineecrdockerendpoint0BA4621C": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "outlineecrdockerendpointSecurityGroup753C2709",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-2.ecr.dkr",
+    "SubnetIds": [
+     {
+      "Ref": "outlinevpcprivateSubnet1Subnet4D9F37CF"
+     },
+     {
+      "Ref": "outlinevpcprivateSubnet2Subnet4293B755"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-ecr-docker-endpoint"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPCEndpoint"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-ecr-docker-endpoint/Resource"
+   }
+  },
+  "outlinecloudwatchendpointSecurityGroupAF7C71E3": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "outline-network-dev/outline-cloudwatch-endpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "outlinevpc4D23A21F",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "outlinevpc4D23A21F",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-cloudwatch-endpoint"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPCEndpoint"
+     }
+    ],
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-cloudwatch-endpoint/SecurityGroup/Resource"
+   }
+  },
+  "outlinecloudwatchendpointCC27EC9A": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "outlinecloudwatchendpointSecurityGroupAF7C71E3",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-2.logs",
+    "SubnetIds": [
+     {
+      "Ref": "outlinevpcprivateSubnet1Subnet4D9F37CF"
+     },
+     {
+      "Ref": "outlinevpcprivateSubnet2Subnet4293B755"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-cloudwatch-endpoint"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "VPCEndpoint"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": {
+     "Ref": "outlinevpc4D23A21F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/outline-cloudwatch-endpoint/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31OQW6DMBB8S+7GbRJVypWiKOLSWlBxrRazIU5gjex1EIry94oEQS/taWdmZ2dnI9e7rXxdQe8jXV2ixpTyljPoi4Def6PeyFvRaZEcqVCJUKFsjM5DScijtqDMBsYvKBtc9EWLvbfaABtLs3kE+1SN4wP4AIw9DEI5cwXGJTglRkc4G55NJhYzgz61SCxy1MEZHg7Ohu7R4V8hpdqh92IKKjq9p6qzhnj6MNNHgSNo/OW5iwy9DU6jSIJn2y70SH+slLNXU6F7B48i9h45Z6gN1ePNZ+Au8F2ogU+WXrZyJ9dvq7M3JnKB2LQos+f8AatuYnmyAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-network-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "VpcId": {
+   "Description": "VPC ID",
+   "Value": {
+    "Ref": "outlinevpc4D23A21F"
+   },
+   "Export": {
+    "Name": "outline-dev-vpc-id"
+   }
+  },
+  "PrivateSubnets": {
+   "Description": "Private subnet IDs",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Ref": "outlinevpcprivateSubnet1Subnet4D9F37CF"
+      },
+      ",",
+      {
+       "Ref": "outlinevpcprivateSubnet2Subnet4293B755"
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-private-subnets"
+   }
+  },
+  "PublicSubnets": {
+   "Description": "Public subnet IDs",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Ref": "outlinevpcpublicSubnet1Subnet0C06FBB7"
+      },
+      ",",
+      {
+       "Ref": "outlinevpcpublicSubnet2Subnet6D8E53AA"
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-public-subnets"
+   }
+  },
+  "EcsSecurityGroupId": {
+   "Description": "ECS Security Group ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "outlineecssg1A19D7F0",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-ecs-sg-id"
+   }
+  },
+  "AlbSecurityGroupId": {
+   "Description": "ALB Security Group ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinealbsg041EADD6",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-alb-sg-id"
+   }
+  },
+  "DatabaseSecurityGroupId": {
+   "Description": "Database Security Group ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinedatabasesgB75175DC",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-database-sg-id"
+   }
+  },
+  "RedisSecurityGroupId": {
+   "Description": "Redis Security Group ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "outlineredissg41BB06A6",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-redis-sg-id"
+   }
+  },
+  "ExportsOutputRefoutlinevpcpublicSubnet1Subnet0C06FBB7355427B6": {
+   "Value": {
+    "Ref": "outlinevpcpublicSubnet1Subnet0C06FBB7"
+   },
+   "Export": {
+    "Name": "outline-network-dev:ExportsOutputRefoutlinevpcpublicSubnet1Subnet0C06FBB7355427B6"
+   }
+  },
+  "ExportsOutputRefoutlinevpcpublicSubnet2Subnet6D8E53AA733B1EE1": {
+   "Value": {
+    "Ref": "outlinevpcpublicSubnet2Subnet6D8E53AA"
+   },
+   "Export": {
+    "Name": "outline-network-dev:ExportsOutputRefoutlinevpcpublicSubnet2Subnet6D8E53AA733B1EE1"
+   }
+  },
+  "ExportsOutputFnGetAttoutlinedatabasesgB75175DCGroupId12A46B98": {
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinedatabasesgB75175DC",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "outline-network-dev:ExportsOutputFnGetAttoutlinedatabasesgB75175DCGroupId12A46B98"
+   }
+  },
+  "ExportsOutputRefoutlinevpcprivateSubnet1Subnet4D9F37CF37353BBA": {
+   "Value": {
+    "Ref": "outlinevpcprivateSubnet1Subnet4D9F37CF"
+   },
+   "Export": {
+    "Name": "outline-network-dev:ExportsOutputRefoutlinevpcprivateSubnet1Subnet4D9F37CF37353BBA"
+   }
+  },
+  "ExportsOutputRefoutlinevpcprivateSubnet2Subnet4293B755DEFD7C94": {
+   "Value": {
+    "Ref": "outlinevpcprivateSubnet2Subnet4293B755"
+   },
+   "Export": {
+    "Name": "outline-network-dev:ExportsOutputRefoutlinevpcprivateSubnet2Subnet4293B755DEFD7C94"
+   }
+  },
+  "ExportsOutputFnGetAttoutlineredissg41BB06A6GroupId79FD4695": {
+   "Value": {
+    "Fn::GetAtt": [
+     "outlineredissg41BB06A6",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "outline-network-dev:ExportsOutputFnGetAttoutlineredissg41BB06A6GroupId79FD4695"
+   }
+  },
+  "ExportsOutputFnGetAttoutlineecssg1A19D7F0GroupId897192BD": {
+   "Value": {
+    "Fn::GetAtt": [
+     "outlineecssg1A19D7F0",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "outline-network-dev:ExportsOutputFnGetAttoutlineecssg1A19D7F0GroupId897192BD"
+   }
+  },
+  "ExportsOutputFnGetAttoutlinealbsg041EADD6GroupId67573BA1": {
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinealbsg041EADD6",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "outline-network-dev:ExportsOutputFnGetAttoutlinealbsg041EADD6GroupId67573BA1"
+   }
+  },
+  "ExportsOutputRefoutlinevpc4D23A21F7A7C153A": {
+   "Value": {
+    "Ref": "outlinevpc4D23A21F"
+   },
+   "Export": {
+    "Name": "outline-network-dev:ExportsOutputRefoutlinevpc4D23A21F7A7C153A"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

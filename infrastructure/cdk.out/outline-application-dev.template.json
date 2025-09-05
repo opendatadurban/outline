@@ -1,0 +1,1280 @@
+{
+ "Description": "Application infrastructure for Outline on ECS",
+ "Resources": {
+  "outlinecluster82FEBE51": {
+   "Type": "AWS::ECS::Cluster",
+   "Properties": {
+    "ClusterName": "outline-dev-cluster",
+    "ClusterSettings": [
+     {
+      "Name": "containerInsights",
+      "Value": "enabled"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-cluster"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "ECSCluster"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-cluster/Resource"
+   }
+  },
+  "outlinelogsE1C67FBC": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/outline-dev",
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-logs"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "LogGroup"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-logs/Resource"
+   }
+  },
+  "outlinetaskrole4EA3AB95": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-task-role"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "IAMRole"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-task-role/Resource"
+   }
+  },
+  "outlinetaskroleDefaultPolicy486FAAF9": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:DeleteObject",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:PutObject",
+        "secretsmanager:GetSecretValue"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "outlinetaskroleDefaultPolicy486FAAF9",
+    "Roles": [
+     {
+      "Ref": "outlinetaskrole4EA3AB95"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-task-role/DefaultPolicy/Resource"
+   }
+  },
+  "outlineexecutionrole19D87332": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-execution-role"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "IAMRole"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-execution-role/Resource"
+   }
+  },
+  "outlineexecutionroleDefaultPolicyF42E293B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
+       }
+      },
+      {
+       "Action": "ecr:GetAuthorizationToken",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "outlinelogsE1C67FBC",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "outline-database-dev:ExportsOutputRefoutlinedatabasesecretB873BCEC00BC222E"
+        },
+        {
+         "Ref": "outlineappsecret57C2430D"
+        },
+        {
+         "Ref": "outlineutilssecret4D9CA2E6"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "outlineexecutionroleDefaultPolicyF42E293B",
+    "Roles": [
+     {
+      "Ref": "outlineexecutionrole19D87332"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-execution-role/DefaultPolicy/Resource"
+   }
+  },
+  "outlinetaskdef52040525": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "NODE_ENV",
+        "Value": "production"
+       },
+       {
+        "Name": "PORT",
+        "Value": "3000"
+       },
+       {
+        "Name": "ENVIRONMENT",
+        "Value": "dev"
+       },
+       {
+        "Name": "ENABLE_UPDATES",
+        "Value": "true"
+       },
+       {
+        "Name": "DEFAULT_LANGUAGE",
+        "Value": "en_US"
+       },
+       {
+        "Name": "FILE_STORAGE_UPLOAD_MAX_SIZE",
+        "Value": "26214400"
+       },
+       {
+        "Name": "AWS_REGION",
+        "Value": "us-east-2"
+       },
+       {
+        "Name": "AWS_S3_ACL",
+        "Value": "private"
+       },
+       {
+        "Name": "AWS_S3_FORCE_PATH_STYLE",
+        "Value": "false"
+       },
+       {
+        "Name": "SMTP_SECURE",
+        "Value": "true"
+       },
+       {
+        "Name": "PGSSLMODE",
+        "Value": "require"
+       },
+       {
+        "Name": "REDIS_URL",
+        "Value": {
+         "Fn::Join": [
+          "",
+          [
+           "redis://",
+           {
+            "Fn::ImportValue": "outline-database-dev:ExportsOutputFnGetAttoutlineredisclusterRedisEndpointAddress21449EA8"
+           },
+           ":",
+           {
+            "Fn::ImportValue": "outline-database-dev:ExportsOutputFnGetAttoutlineredisclusterRedisEndpointPort43CACC26"
+           }
+          ]
+         ]
+        }
+       },
+       {
+        "Name": "URL",
+        "Value": {
+         "Fn::Join": [
+          "",
+          [
+           "http://",
+           {
+            "Fn::GetAtt": [
+             "outlinealb8D8A7EB2",
+             "DNSName"
+            ]
+           }
+          ]
+         ]
+        }
+       }
+      ],
+      "Essential": true,
+      "HealthCheck": {
+       "Command": [
+        "CMD-SHELL",
+        "wget -qO- http://localhost:3000/_health | grep -q 'OK' || exit 1"
+       ],
+       "Interval": 30,
+       "Retries": 3,
+       "StartPeriod": 60,
+       "Timeout": 5
+      },
+      "Image": {
+       "Fn::Join": [
+        "",
+        [
+         {
+          "Fn::Select": [
+           4,
+           {
+            "Fn::Split": [
+             ":",
+             {
+              "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
+             }
+            ]
+           }
+          ]
+         },
+         ".dkr.ecr.",
+         {
+          "Fn::Select": [
+           3,
+           {
+            "Fn::Split": [
+             ":",
+             {
+              "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
+             }
+            ]
+           }
+          ]
+         },
+         ".",
+         {
+          "Ref": "AWS::URLSuffix"
+         },
+         "/",
+         {
+          "Fn::ImportValue": "outline-cicd-dev:ExportsOutputRefoutlinerepository74C23DCD7197F1BE"
+         },
+         ":latest"
+        ]
+       ]
+      },
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "outlinelogsE1C67FBC"
+        },
+        "awslogs-stream-prefix": "ecs",
+        "awslogs-region": "us-east-2"
+       }
+      },
+      "Name": "outline-app",
+      "PortMappings": [
+       {
+        "ContainerPort": 3000,
+        "Name": "outline-app",
+        "Protocol": "tcp"
+       }
+      ],
+      "Secrets": [
+       {
+        "Name": "SECRET_KEY",
+        "ValueFrom": {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Ref": "outlineappsecret57C2430D"
+           },
+           ":secret_key::"
+          ]
+         ]
+        }
+       },
+       {
+        "Name": "UTILS_SECRET",
+        "ValueFrom": {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Ref": "outlineutilssecret4D9CA2E6"
+           },
+           ":utils_secret::"
+          ]
+         ]
+        }
+       },
+       {
+        "Name": "DATABASE_URL",
+        "ValueFrom": {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::ImportValue": "outline-database-dev:ExportsOutputRefoutlinedatabasesecretB873BCEC00BC222E"
+           },
+           ":DATABASE_URL::"
+          ]
+         ]
+        }
+       }
+      ]
+     }
+    ],
+    "Cpu": "512",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "outlineexecutionrole19D87332",
+      "Arn"
+     ]
+    },
+    "Family": "outline-dev-task",
+    "Memory": "1024",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-task-def"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "TaskDefinition"
+     }
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "outlinetaskrole4EA3AB95",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-task-def/Resource"
+   }
+  },
+  "outlineappsecret57C2430D": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": "Application secrets for Outline (SECRET_KEY, UTILS_SECRET, etc.)",
+    "GenerateSecretString": {
+     "ExcludeCharacters": "\"@/\\",
+     "GenerateStringKey": "secret_key",
+     "PasswordLength": 32,
+     "SecretStringTemplate": "{\"secret_key\": \"\", \"utils_secret\": \"\"}"
+    },
+    "Name": "outline-dev-app-credentials",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-app-secret"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "ApplicationCredentials"
+     },
+     {
+      "Key": "Type",
+      "Value": "Secret"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-app-secret/Resource"
+   }
+  },
+  "outlineutilssecret4D9CA2E6": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": "Utils secret for Outline application",
+    "GenerateSecretString": {
+     "ExcludeCharacters": "\"@/\\",
+     "GenerateStringKey": "utils_secret",
+     "PasswordLength": 32,
+     "SecretStringTemplate": "{\"utils_secret\": \"\"}"
+    },
+    "Name": "outline-dev-utils-credentials",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-utils-secret"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "UtilsCredentials"
+     },
+     {
+      "Key": "Type",
+      "Value": "Secret"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-utils-secret/Resource"
+   }
+  },
+  "outlineserviceServiceDB8F6A21": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "outlinecluster82FEBE51"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DesiredCount": 1,
+    "EnableECSManagedTags": false,
+    "HealthCheckGracePeriodSeconds": 60,
+    "LaunchType": "FARGATE",
+    "LoadBalancers": [
+     {
+      "ContainerName": "outline-app",
+      "ContainerPort": 3000,
+      "TargetGroupArn": {
+       "Ref": "outlinetargetgroupAD798132"
+      }
+     }
+    ],
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::ImportValue": "outline-network-dev:ExportsOutputFnGetAttoutlineecssg1A19D7F0GroupId897192BD"
+       }
+      ],
+      "Subnets": [
+       {
+        "Fn::ImportValue": "outline-network-dev:ExportsOutputRefoutlinevpcprivateSubnet1Subnet4D9F37CF37353BBA"
+       },
+       {
+        "Fn::ImportValue": "outline-network-dev:ExportsOutputRefoutlinevpcprivateSubnet2Subnet4293B755DEFD7C94"
+       }
+      ]
+     }
+    },
+    "ServiceConnectConfiguration": {
+     "Enabled": true,
+     "Namespace": "outline-dev",
+     "Services": [
+      {
+       "ClientAliases": [
+        {
+         "Port": 3000
+        }
+       ],
+       "DiscoveryName": "outline-app",
+       "PortName": "outline-app"
+      }
+     ]
+    },
+    "ServiceName": "outline-dev-service",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-service"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "ECSService"
+     }
+    ],
+    "TaskDefinition": {
+     "Ref": "outlinetaskdef52040525"
+    }
+   },
+   "DependsOn": [
+    "outlinealboutlinelistener2011CE19",
+    "outlinetaskroleDefaultPolicy486FAAF9",
+    "outlinetaskrole4EA3AB95"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-service/Service"
+   }
+  },
+  "outlinealb8D8A7EB2": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Name": "outline-dev-alb",
+    "Scheme": "internet-facing",
+    "SecurityGroups": [
+     {
+      "Fn::ImportValue": "outline-network-dev:ExportsOutputFnGetAttoutlinealbsg041EADD6GroupId67573BA1"
+     }
+    ],
+    "Subnets": [
+     {
+      "Fn::ImportValue": "outline-network-dev:ExportsOutputRefoutlinevpcpublicSubnet1Subnet0C06FBB7355427B6"
+     },
+     {
+      "Fn::ImportValue": "outline-network-dev:ExportsOutputRefoutlinevpcpublicSubnet2Subnet6D8E53AA733B1EE1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-alb"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "LoadBalancer"
+     }
+    ],
+    "Type": "application"
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-alb/Resource"
+   }
+  },
+  "outlinealboutlinelistener2011CE19": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "outlinetargetgroupAD798132"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "outlinealb8D8A7EB2"
+    },
+    "Port": 80,
+    "Protocol": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-alb/outline-listener/Resource"
+   }
+  },
+  "outlinetargetgroupAD798132": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "HealthCheckIntervalSeconds": 30,
+    "HealthCheckPath": "/_health",
+    "HealthCheckPort": "3000",
+    "HealthCheckProtocol": "HTTP",
+    "HealthCheckTimeoutSeconds": 5,
+    "HealthyThresholdCount": 2,
+    "Matcher": {
+     "HttpCode": "200"
+    },
+    "Port": 3000,
+    "Protocol": "HTTP",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-target-group"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "TargetGroup"
+     }
+    ],
+    "TargetGroupAttributes": [
+     {
+      "Key": "deregistration_delay.timeout_seconds",
+      "Value": "30"
+     },
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "ip",
+    "UnhealthyThresholdCount": 3,
+    "VpcId": {
+     "Fn::ImportValue": "outline-network-dev:ExportsOutputRefoutlinevpc4D23A21F7A7C153A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-target-group/Resource"
+   }
+  },
+  "outlinescalabletargetRoleD197017D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "application-autoscaling.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DeploymentDate",
+      "Value": "Unknown"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "outline-dev-scalable-target"
+     },
+     {
+      "Key": "Owner",
+      "Value": "DevOps"
+     },
+     {
+      "Key": "Project",
+      "Value": "outline"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Outline Knowledge Base"
+     },
+     {
+      "Key": "Type",
+      "Value": "ScalableTarget"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-scalable-target/Role/Resource"
+   }
+  },
+  "outlinescalabletargetEC0EA6C1": {
+   "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+   "Properties": {
+    "MaxCapacity": 3,
+    "MinCapacity": 1,
+    "ResourceId": {
+     "Fn::Join": [
+      "",
+      [
+       "service/",
+       {
+        "Ref": "outlinecluster82FEBE51"
+       },
+       "/",
+       {
+        "Fn::GetAtt": [
+         "outlineserviceServiceDB8F6A21",
+         "Name"
+        ]
+       }
+      ]
+     ]
+    },
+    "RoleARN": {
+     "Fn::GetAtt": [
+      "outlinescalabletargetRoleD197017D",
+      "Arn"
+     ]
+    },
+    "ScalableDimension": "ecs:service:DesiredCount",
+    "ServiceNamespace": "ecs"
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-scalable-target/Resource"
+   }
+  },
+  "outlinecpuscaling54A49C9D": {
+   "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+   "Properties": {
+    "PolicyName": "outlineapplicationdevoutlinecpuscalingA9C28115",
+    "PolicyType": "TargetTrackingScaling",
+    "ScalingTargetId": {
+     "Ref": "outlinescalabletargetEC0EA6C1"
+    },
+    "TargetTrackingScalingPolicyConfiguration": {
+     "PredefinedMetricSpecification": {
+      "PredefinedMetricType": "ECSServiceAverageCPUUtilization"
+     },
+     "ScaleInCooldown": 60,
+     "ScaleOutCooldown": 60,
+     "TargetValue": 70
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-cpu-scaling/Resource"
+   }
+  },
+  "outlinememoryscalingF645166F": {
+   "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+   "Properties": {
+    "PolicyName": "outlineapplicationdevoutlinememoryscaling9BE281DE",
+    "PolicyType": "TargetTrackingScaling",
+    "ScalingTargetId": {
+     "Ref": "outlinescalabletargetEC0EA6C1"
+    },
+    "TargetTrackingScalingPolicyConfiguration": {
+     "PredefinedMetricSpecification": {
+      "PredefinedMetricType": "ECSServiceAverageMemoryUtilization"
+     },
+     "ScaleInCooldown": 60,
+     "ScaleOutCooldown": 60,
+     "TargetValue": 80
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/outline-memory-scaling/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Qy27CMBD8Fu7GLaBKXFuq9oJUlHCvFrOYbYwd2WsQsvzvVeJQQk87MzujfczlbLmQzxO4hKnaN1NDO5lqBtUIuITvhCrItDIxMHqxOtgb/ACvgXELoXnHA1licrYz/FecZSCLfqQN2Rr9mRR2oQFmYZwOMq2d/vQutl3rhrMgOMlUOdMn+rpxhtS1owVlEVB55HACCxq9THXPy4gOZYEGApMyDvY7MGAVWX2ey/TatoYUdAuuHezf+l65+YGPfRQY7eC54VF/C14j/10yolnA3QaRXVBgyGqZagUGdgaLuV/8USll60E1ZHVdcvdHPAg5iwqDi758+StyGzmLzZWPzj4t5FLOXiY/gWjqo2U6oaxK/QULZGhZFgIAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "outline-application-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "EcsClusterName": {
+   "Description": "ECS Cluster Name",
+   "Value": {
+    "Ref": "outlinecluster82FEBE51"
+   },
+   "Export": {
+    "Name": "outline-dev-ecs-cluster-name"
+   }
+  },
+  "EcsServiceName": {
+   "Description": "ECS Service Name",
+   "Value": {
+    "Fn::GetAtt": [
+     "outlineserviceServiceDB8F6A21",
+     "Name"
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-ecs-service-name"
+   }
+  },
+  "LoadBalancerDnsName": {
+   "Description": "Application Load Balancer DNS Name",
+   "Value": {
+    "Fn::GetAtt": [
+     "outlinealb8D8A7EB2",
+     "DNSName"
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-alb-dns-name"
+   }
+  },
+  "EcrRepositoryUri": {
+   "Description": "ECR Repository URI",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Fn::Select": [
+        4,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
+          }
+         ]
+        }
+       ]
+      },
+      ".dkr.ecr.",
+      {
+       "Fn::Select": [
+        3,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
+          }
+         ]
+        }
+       ]
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Fn::ImportValue": "outline-cicd-dev:ExportsOutputRefoutlinerepository74C23DCD7197F1BE"
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "outline-dev-ecr-repo-uri"
+   }
+  },
+  "AppSecretArn": {
+   "Description": "Application secrets ARN (SECRET_KEY)",
+   "Value": {
+    "Ref": "outlineappsecret57C2430D"
+   },
+   "Export": {
+    "Name": "outline-dev-app-secret-arn"
+   }
+  },
+  "UtilsSecretArn": {
+   "Description": "Utils secrets ARN (UTILS_SECRET)",
+   "Value": {
+    "Ref": "outlineutilssecret4D9CA2E6"
+   },
+   "Export": {
+    "Name": "outline-dev-utils-secret-arn"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

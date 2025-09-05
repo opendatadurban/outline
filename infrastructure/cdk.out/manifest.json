@@ -1,0 +1,1176 @@
+{
+  "version": "40.0.0",
+  "artifacts": {
+    "outline-network-dev.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "outline-network-dev.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "outline-network-dev": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://530374903628/us-east-2",
+      "properties": {
+        "templateFile": "outline-network-dev.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "CostCenter": "Engineering",
+          "DeploymentDate": "Unknown",
+          "Environment": "dev",
+          "ManagedBy": "CDK",
+          "Owner": "DevOps",
+          "Project": "outline",
+          "Purpose": "Outline Knowledge Base"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-deploy-role-530374903628-us-east-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-cfn-exec-role-530374903628-us-east-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-530374903628-us-east-2/870d62c3d93056f40f11a0499a8c33bccaafb9fb3e5753abd13377a890f33ed5.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "outline-network-dev.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-lookup-role-530374903628-us-east-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "outline-network-dev.assets"
+      ],
+      "metadata": {
+        "/outline-network-dev": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "CostCenter",
+                "Value": "Engineering"
+              },
+              {
+                "Key": "DeploymentDate",
+                "Value": "Unknown"
+              },
+              {
+                "Key": "Environment",
+                "Value": "dev"
+              },
+              {
+                "Key": "ManagedBy",
+                "Value": "CDK"
+              },
+              {
+                "Key": "Owner",
+                "Value": "DevOps"
+              },
+              {
+                "Key": "Project",
+                "Value": "outline"
+              },
+              {
+                "Key": "Purpose",
+                "Value": "Outline Knowledge Base"
+              }
+            ]
+          }
+        ],
+        "/outline-network-dev/outline-vpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpc4D23A21F"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/publicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcpublicSubnet1Subnet0C06FBB7"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/publicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcpublicSubnet1RouteTableAA59FCB9"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/publicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcpublicSubnet1RouteTableAssociationC25C3DD2"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/publicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcpublicSubnet1DefaultRoute082E4FD0"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/publicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcpublicSubnet1EIP52E9A540"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/publicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcpublicSubnet1NATGateway02B890EE"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/publicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcpublicSubnet2Subnet6D8E53AA"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/publicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcpublicSubnet2RouteTableA23C7031"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/publicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcpublicSubnet2RouteTableAssociationA431DCBE"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/publicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcpublicSubnet2DefaultRoute48A19E4C"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/privateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcprivateSubnet1Subnet4D9F37CF"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/privateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcprivateSubnet1RouteTableC0A6877A"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/privateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcprivateSubnet1RouteTableAssociationC9EAD291"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/privateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcprivateSubnet1DefaultRouteDF163F47"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/privateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcprivateSubnet2Subnet4293B755"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/privateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcprivateSubnet2RouteTable1EDA65C3"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/privateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcprivateSubnet2RouteTableAssociation24C29BCA"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/privateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcprivateSubnet2DefaultRoute08145EBA"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/isolatedSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcisolatedSubnet1Subnet75EA1C35"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/isolatedSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcisolatedSubnet1RouteTable1C5E72A9"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/isolatedSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcisolatedSubnet1RouteTableAssociationD4C1E6AF"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/isolatedSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcisolatedSubnet2SubnetA4CA995F"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/isolatedSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcisolatedSubnet2RouteTable888B8F34"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/isolatedSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcisolatedSubnet2RouteTableAssociationB12E322B"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcIGW5DCD5E6F"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcVPCGW8DAE0505"
+          }
+        ],
+        "/outline-network-dev/outline-vpc/RestrictDefaultSecurityGroupCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinevpcRestrictDefaultSecurityGroupCustomResource5BB5C414"
+          }
+        ],
+        "/outline-network-dev/Custom::VpcRestrictDefaultSGCustomResourceProvider": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+            "data": true
+          }
+        ],
+        "/outline-network-dev/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+          }
+        ],
+        "/outline-network-dev/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E"
+          }
+        ],
+        "/outline-network-dev/outline-alb-sg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinealbsg041EADD6"
+          }
+        ],
+        "/outline-network-dev/outline-ecs-sg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineecssg1A19D7F0"
+          }
+        ],
+        "/outline-network-dev/outline-ecs-sg/from outlinenetworkdevoutlinealbsgED72AF4F:3000": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineecssgfromoutlinenetworkdevoutlinealbsgED72AF4F3000791F47D6"
+          }
+        ],
+        "/outline-network-dev/outline-database-sg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinedatabasesgB75175DC"
+          }
+        ],
+        "/outline-network-dev/outline-database-sg/from outlinenetworkdevoutlineecssgBD72DC3C:5432": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinedatabasesgfromoutlinenetworkdevoutlineecssgBD72DC3C543292E29092"
+          }
+        ],
+        "/outline-network-dev/outline-redis-sg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineredissg41BB06A6"
+          }
+        ],
+        "/outline-network-dev/outline-redis-sg/from outlinenetworkdevoutlineecssgBD72DC3C:6379": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineredissgfromoutlinenetworkdevoutlineecssgBD72DC3C63797B8F7FF4"
+          }
+        ],
+        "/outline-network-dev/outline-s3-endpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlines3endpoint860B1EF2"
+          }
+        ],
+        "/outline-network-dev/outline-ecr-endpoint/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineecrendpointSecurityGroup69B89A9A"
+          }
+        ],
+        "/outline-network-dev/outline-ecr-endpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineecrendpoint445602EC"
+          }
+        ],
+        "/outline-network-dev/outline-ecr-docker-endpoint/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineecrdockerendpointSecurityGroup753C2709"
+          }
+        ],
+        "/outline-network-dev/outline-ecr-docker-endpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineecrdockerendpoint0BA4621C"
+          }
+        ],
+        "/outline-network-dev/outline-cloudwatch-endpoint/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecloudwatchendpointSecurityGroupAF7C71E3"
+          }
+        ],
+        "/outline-network-dev/outline-cloudwatch-endpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecloudwatchendpointCC27EC9A"
+          }
+        ],
+        "/outline-network-dev/VpcId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcId"
+          }
+        ],
+        "/outline-network-dev/PrivateSubnets": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PrivateSubnets"
+          }
+        ],
+        "/outline-network-dev/PublicSubnets": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PublicSubnets"
+          }
+        ],
+        "/outline-network-dev/EcsSecurityGroupId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsSecurityGroupId"
+          }
+        ],
+        "/outline-network-dev/AlbSecurityGroupId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AlbSecurityGroupId"
+          }
+        ],
+        "/outline-network-dev/DatabaseSecurityGroupId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DatabaseSecurityGroupId"
+          }
+        ],
+        "/outline-network-dev/RedisSecurityGroupId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedisSecurityGroupId"
+          }
+        ],
+        "/outline-network-dev/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/outline-network-dev/Exports/Output{\"Ref\":\"outlinevpcpublicSubnet1Subnet0C06FBB7\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefoutlinevpcpublicSubnet1Subnet0C06FBB7355427B6"
+          }
+        ],
+        "/outline-network-dev/Exports/Output{\"Ref\":\"outlinevpcpublicSubnet2Subnet6D8E53AA\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefoutlinevpcpublicSubnet2Subnet6D8E53AA733B1EE1"
+          }
+        ],
+        "/outline-network-dev/Exports/Output{\"Fn::GetAtt\":[\"outlinedatabasesgB75175DC\",\"GroupId\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttoutlinedatabasesgB75175DCGroupId12A46B98"
+          }
+        ],
+        "/outline-network-dev/Exports/Output{\"Ref\":\"outlinevpcprivateSubnet1Subnet4D9F37CF\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefoutlinevpcprivateSubnet1Subnet4D9F37CF37353BBA"
+          }
+        ],
+        "/outline-network-dev/Exports/Output{\"Ref\":\"outlinevpcprivateSubnet2Subnet4293B755\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefoutlinevpcprivateSubnet2Subnet4293B755DEFD7C94"
+          }
+        ],
+        "/outline-network-dev/Exports/Output{\"Fn::GetAtt\":[\"outlineredissg41BB06A6\",\"GroupId\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttoutlineredissg41BB06A6GroupId79FD4695"
+          }
+        ],
+        "/outline-network-dev/Exports/Output{\"Fn::GetAtt\":[\"outlineecssg1A19D7F0\",\"GroupId\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttoutlineecssg1A19D7F0GroupId897192BD"
+          }
+        ],
+        "/outline-network-dev/Exports/Output{\"Fn::GetAtt\":[\"outlinealbsg041EADD6\",\"GroupId\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttoutlinealbsg041EADD6GroupId67573BA1"
+          }
+        ],
+        "/outline-network-dev/Exports/Output{\"Ref\":\"outlinevpc4D23A21F\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefoutlinevpc4D23A21F7A7C153A"
+          }
+        ],
+        "/outline-network-dev/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/outline-network-dev/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "outline-network-dev"
+    },
+    "outline-database-dev.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "outline-database-dev.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "outline-database-dev": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://530374903628/us-east-2",
+      "properties": {
+        "templateFile": "outline-database-dev.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "CostCenter": "Engineering",
+          "DeploymentDate": "Unknown",
+          "Environment": "dev",
+          "ManagedBy": "CDK",
+          "Owner": "DevOps",
+          "Project": "outline",
+          "Purpose": "Outline Knowledge Base"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-deploy-role-530374903628-us-east-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-cfn-exec-role-530374903628-us-east-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-530374903628-us-east-2/155265490049654906a03dd49fdf54e59f35698f0dc4b8f7061d6c3d64d68750.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "outline-database-dev.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-lookup-role-530374903628-us-east-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "outline-network-dev",
+        "outline-database-dev.assets"
+      ],
+      "metadata": {
+        "/outline-database-dev": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "CostCenter",
+                "Value": "Engineering"
+              },
+              {
+                "Key": "DeploymentDate",
+                "Value": "Unknown"
+              },
+              {
+                "Key": "Environment",
+                "Value": "dev"
+              },
+              {
+                "Key": "ManagedBy",
+                "Value": "CDK"
+              },
+              {
+                "Key": "Owner",
+                "Value": "DevOps"
+              },
+              {
+                "Key": "Project",
+                "Value": "outline"
+              },
+              {
+                "Key": "Purpose",
+                "Value": "Outline Knowledge Base"
+              }
+            ]
+          }
+        ],
+        "/outline-database-dev/outline-database-secret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinedatabasesecretB873BCEC"
+          }
+        ],
+        "/outline-database-dev/outline-database-secret/Attachment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinedatabasesecretAttachment06F3514B"
+          }
+        ],
+        "/outline-database-dev/outline-redis-secret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineredissecret64518DF6"
+          }
+        ],
+        "/outline-database-dev/outline-database-subnet-group/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinedatabasesubnetgroup"
+          }
+        ],
+        "/outline-database-dev/outline-database-parameter-group/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinedatabaseparametergroup865B3C26"
+          }
+        ],
+        "/outline-database-dev/outline-database/MonitoringRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinedatabaseMonitoringRole36F0397F"
+          }
+        ],
+        "/outline-database-dev/outline-database/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinedatabase732CEEF3"
+          }
+        ],
+        "/outline-database-dev/outline-redis-subnet-group": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineredissubnetgroup"
+          }
+        ],
+        "/outline-database-dev/outline-redis-cluster": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinerediscluster"
+          }
+        ],
+        "/outline-database-dev/DatabaseEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DatabaseEndpoint"
+          }
+        ],
+        "/outline-database-dev/DatabasePort": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DatabasePort"
+          }
+        ],
+        "/outline-database-dev/DatabaseSecretArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DatabaseSecretArn"
+          }
+        ],
+        "/outline-database-dev/RedisSecretArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedisSecretArn"
+          }
+        ],
+        "/outline-database-dev/RedisEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedisEndpoint"
+          }
+        ],
+        "/outline-database-dev/RedisPort": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedisPort"
+          }
+        ],
+        "/outline-database-dev/DatabaseCredentials": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DatabaseCredentials"
+          }
+        ],
+        "/outline-database-dev/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/outline-database-dev/Exports/Output{\"Ref\":\"outlinedatabasesecretB873BCEC\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefoutlinedatabasesecretB873BCEC00BC222E"
+          }
+        ],
+        "/outline-database-dev/Exports/Output{\"Fn::GetAtt\":[\"outlinerediscluster\",\"RedisEndpoint.Address\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttoutlineredisclusterRedisEndpointAddress21449EA8"
+          }
+        ],
+        "/outline-database-dev/Exports/Output{\"Fn::GetAtt\":[\"outlinerediscluster\",\"RedisEndpoint.Port\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttoutlineredisclusterRedisEndpointPort43CACC26"
+          }
+        ],
+        "/outline-database-dev/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/outline-database-dev/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "outline-database-dev"
+    },
+    "outline-cicd-dev.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "outline-cicd-dev.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "outline-cicd-dev": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://530374903628/us-east-2",
+      "properties": {
+        "templateFile": "outline-cicd-dev.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "CostCenter": "Engineering",
+          "DeploymentDate": "Unknown",
+          "Environment": "dev",
+          "ManagedBy": "CDK",
+          "Owner": "DevOps",
+          "Project": "outline",
+          "Purpose": "Outline Knowledge Base"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-deploy-role-530374903628-us-east-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-cfn-exec-role-530374903628-us-east-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-530374903628-us-east-2/72a1773b78c59e6faaeabc255ddfd0aa8e3f4400e8adb8ba6cb189a845b3df55.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "outline-cicd-dev.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-lookup-role-530374903628-us-east-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "outline-network-dev",
+        "outline-database-dev",
+        "outline-cicd-dev.assets"
+      ],
+      "metadata": {
+        "/outline-cicd-dev": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "CostCenter",
+                "Value": "Engineering"
+              },
+              {
+                "Key": "DeploymentDate",
+                "Value": "Unknown"
+              },
+              {
+                "Key": "Environment",
+                "Value": "dev"
+              },
+              {
+                "Key": "ManagedBy",
+                "Value": "CDK"
+              },
+              {
+                "Key": "Owner",
+                "Value": "DevOps"
+              },
+              {
+                "Key": "Project",
+                "Value": "outline"
+              },
+              {
+                "Key": "Purpose",
+                "Value": "Outline Knowledge Base"
+              }
+            ]
+          }
+        ],
+        "/outline-cicd-dev/outline-repository/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinerepository74C23DCD"
+          }
+        ],
+        "/outline-cicd-dev/outline-codebuild-logs/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecodebuildlogs323DA7A5"
+          }
+        ],
+        "/outline-cicd-dev/outline-codebuild-service-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecodebuildservicerole65BEF9A0"
+          }
+        ],
+        "/outline-cicd-dev/outline-codebuild-service-role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecodebuildserviceroleDefaultPolicy5BCF1357"
+          }
+        ],
+        "/outline-cicd-dev/outline-codebuild-project/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecodebuildproject45A97EDF"
+          }
+        ],
+        "/outline-cicd-dev/outline-codecommit-repo/outlinecicddevoutlinepipeline8AE70085-main-EventRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecodecommitrepooutlinecicddevoutlinepipeline8AE70085mainEventRule6A7DA2B1"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "V1 pipeline type is implicitly selected when `pipelineType` is not set. If you want to use V2 type, set `PipelineType.V2`. [ack: @aws-cdk/aws-codepipeline:unspecifiedPipelineType]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\jsii-kernel-q9wA2j\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\jsii-kernel-q9wA2j\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new Pipeline (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\jsii-kernel-q9wA2j\\node_modules\\aws-cdk-lib\\aws-codepipeline\\lib\\pipeline.js:1:7315)",
+              "Kernel._Kernel_create (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmp099pdq_3\\lib\\program.js:14788:25)",
+              "Kernel.create (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmp099pdq_3\\lib\\program.js:14458:93)",
+              "KernelHost.processRequest (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmp099pdq_3\\lib\\program.js:16378:36)",
+              "KernelHost.run (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmp099pdq_3\\lib\\program.js:16338:22)",
+              "Immediate._onImmediate (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmp099pdq_3\\lib\\program.js:16339:46)",
+              "process.processImmediate (node:internal/timers:491:21)"
+            ]
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/ArtifactsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineArtifactsBucket0B7E7473"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/ArtifactsBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineArtifactsBucketPolicy94008835"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineRole0CCFE4B3"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineRoleDefaultPolicyB5D6CAAE"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipeline66DFBBCD"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineSourceCodePipelineActionRole1A6F7B99"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineSourceCodePipelineActionRoleDefaultPolicy028C2194"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/EventsRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineEventsRole308D37B5"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/EventsRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineEventsRoleDefaultPolicyA8376067"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineBuildCodePipelineActionRole459F759F"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineBuildCodePipelineActionRoleDefaultPolicy53883B80"
+          }
+        ],
+        "/outline-cicd-dev/CodeBuildProjectName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CodeBuildProjectName"
+          }
+        ],
+        "/outline-cicd-dev/CodePipelineName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CodePipelineName"
+          }
+        ],
+        "/outline-cicd-dev/CodePipelineUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CodePipelineUrl"
+          }
+        ],
+        "/outline-cicd-dev/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/outline-cicd-dev/Exports/Output{\"Fn::GetAtt\":[\"outlinerepository74C23DCD\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
+          }
+        ],
+        "/outline-cicd-dev/Exports/Output{\"Ref\":\"outlinerepository74C23DCD\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefoutlinerepository74C23DCD7197F1BE"
+          }
+        ],
+        "/outline-cicd-dev/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/outline-cicd-dev/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "outline-cicd-dev"
+    },
+    "outline-application-dev.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "outline-application-dev.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "outline-application-dev": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://530374903628/us-east-2",
+      "properties": {
+        "templateFile": "outline-application-dev.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "CostCenter": "Engineering",
+          "DeploymentDate": "Unknown",
+          "Environment": "dev",
+          "ManagedBy": "CDK",
+          "Owner": "DevOps",
+          "Project": "outline",
+          "Purpose": "Outline Knowledge Base"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-deploy-role-530374903628-us-east-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-cfn-exec-role-530374903628-us-east-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-530374903628-us-east-2/3077f82cdb80e15408d2c36f11b5786bda1196c375ffdfdd897fd8b816e0d7a1.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "outline-application-dev.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-lookup-role-530374903628-us-east-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "outline-network-dev",
+        "outline-database-dev",
+        "outline-cicd-dev",
+        "outline-application-dev.assets"
+      ],
+      "metadata": {
+        "/outline-application-dev": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "CostCenter",
+                "Value": "Engineering"
+              },
+              {
+                "Key": "DeploymentDate",
+                "Value": "Unknown"
+              },
+              {
+                "Key": "Environment",
+                "Value": "dev"
+              },
+              {
+                "Key": "ManagedBy",
+                "Value": "CDK"
+              },
+              {
+                "Key": "Owner",
+                "Value": "DevOps"
+              },
+              {
+                "Key": "Project",
+                "Value": "outline"
+              },
+              {
+                "Key": "Purpose",
+                "Value": "Outline Knowledge Base"
+              }
+            ]
+          }
+        ],
+        "/outline-application-dev/outline-cluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecluster82FEBE51"
+          }
+        ],
+        "/outline-application-dev/outline-logs/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinelogsE1C67FBC"
+          }
+        ],
+        "/outline-application-dev/outline-task-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinetaskrole4EA3AB95"
+          }
+        ],
+        "/outline-application-dev/outline-task-role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinetaskroleDefaultPolicy486FAAF9"
+          }
+        ],
+        "/outline-application-dev/outline-execution-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineexecutionrole19D87332"
+          }
+        ],
+        "/outline-application-dev/outline-execution-role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineexecutionroleDefaultPolicyF42E293B"
+          }
+        ],
+        "/outline-application-dev/outline-task-def/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinetaskdef52040525"
+          }
+        ],
+        "/outline-application-dev/outline-app-secret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineappsecret57C2430D"
+          }
+        ],
+        "/outline-application-dev/outline-utils-secret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineutilssecret4D9CA2E6"
+          }
+        ],
+        "/outline-application-dev/outline-service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlineserviceServiceDB8F6A21"
+          }
+        ],
+        "/outline-application-dev/outline-alb/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinealb8D8A7EB2"
+          }
+        ],
+        "/outline-application-dev/outline-alb/outline-listener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinealboutlinelistener2011CE19"
+          }
+        ],
+        "/outline-application-dev/outline-target-group/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinetargetgroupAD798132"
+          }
+        ],
+        "/outline-application-dev/outline-scalable-target/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinescalabletargetRoleD197017D"
+          }
+        ],
+        "/outline-application-dev/outline-scalable-target/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinescalabletargetEC0EA6C1"
+          }
+        ],
+        "/outline-application-dev/outline-cpu-scaling/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecpuscaling54A49C9D"
+          }
+        ],
+        "/outline-application-dev/outline-memory-scaling/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinememoryscalingF645166F"
+          }
+        ],
+        "/outline-application-dev/EcsClusterName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsClusterName"
+          }
+        ],
+        "/outline-application-dev/EcsServiceName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsServiceName"
+          }
+        ],
+        "/outline-application-dev/LoadBalancerDnsName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LoadBalancerDnsName"
+          }
+        ],
+        "/outline-application-dev/EcrRepositoryUri": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcrRepositoryUri"
+          }
+        ],
+        "/outline-application-dev/AppSecretArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AppSecretArn"
+          }
+        ],
+        "/outline-application-dev/UtilsSecretArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UtilsSecretArn"
+          }
+        ],
+        "/outline-application-dev/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/outline-application-dev/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/outline-application-dev/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "outline-application-dev"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
