@@ -67,6 +67,9 @@ database_stack = DatabaseStack(
 database_stack.add_dependency(network_stack)
 
 # STACK 3: Application Stack (depends on Network and Database)
+# SSL Certificate Configuration
+DOMAIN_NAME = "wiki.opencitieslab.org"
+
 application_stack = ApplicationStack(
     app, f"{PROJECT_NAME}-application-{ENVIRONMENT}",
     env=env,
@@ -81,10 +84,12 @@ application_stack = ApplicationStack(
     database_port=str(database_stack.database_instance.instance_endpoint.port),
     redis_host=database_stack.redis_cluster.attr_redis_endpoint_address,
     redis_port=database_stack.redis_cluster.attr_redis_endpoint_port,
+    domain_name=DOMAIN_NAME,  # Enable SSL with custom domain
     description="Application infrastructure for Outline on ECS"
 )
 application_stack.add_dependency(network_stack)
 application_stack.add_dependency(database_stack)
+
 
 # STACK 4: CI/CD Stack (depends on Application)
 cicd_stack = CiCdStack(
@@ -92,12 +97,13 @@ cicd_stack = CiCdStack(
     env=env,
     environment=ENVIRONMENT,
     project_name=PROJECT_NAME,
+    ecs_cluster=application_stack.ecs_cluster,
+    ecs_service=application_stack.ecs_service,
     description="CI/CD pipeline for Outline application"
 )
 cicd_stack.add_dependency(application_stack)
 
-# Update CI/CD stack with ECS resources after application stack is created
-cicd_stack.set_ecs_resources(application_stack.ecs_cluster, application_stack.ecs_service)
+# ECS resources are passed directly to CiCdStack constructor
 
 # Apply common tags to all stacks
 for stack in [network_stack, database_stack, application_stack, cicd_stack]:

@@ -86,8 +86,136 @@ class ApplicationStack(Stack):
         # Create Auto-scaling
         self._create_auto_scaling()
         
+        # Create dynamic environment variable loader
+        self._create_dynamic_env_loader()
+        
         # Create outputs
         self._create_outputs()
+
+    def _create_dynamic_env_loader(self):
+        """Add environment variables that will be dynamically loaded from app secrets"""
+        
+        # Add a special environment variable that tells the application to load additional env vars from secrets
+        self.container.add_environment("LOAD_DYNAMIC_ENV_VARS", "true")
+        self.container.add_environment("APP_SECRET_ARN", self.app_secret.secret_arn)
+        
+        # Add a startup script that will load environment variables from the secret
+        # This will be handled by the application code itself
+        self.container.add_environment("DYNAMIC_ENV_LOADER", "enabled")
+        
+        # Note: To enable dynamic loading in your Outline application, add this code to your app startup:
+        # 
+        # ```javascript
+        # // Add this to your server startup code (e.g., server/index.ts)
+        # if (process.env.LOAD_DYNAMIC_ENV_VARS === 'true') {
+        #   const AWS = require('aws-sdk');
+        #   const secretsManager = new AWS.SecretsManager({ region: process.env.AWS_REGION });
+        #   
+        #   try {
+        #     const secretValue = await secretsManager.getSecretValue({
+        #       SecretId: process.env.APP_SECRET_ARN
+        #     }).promise();
+        #     
+        #     const secret = JSON.parse(secretValue.SecretString);
+        #     const systemKeys = ['secret_key', 'utils_secret']; // Keys already handled as secrets
+        #     
+        #     // Load all non-system keys as environment variables
+        #     Object.entries(secret).forEach(([key, value]) => {
+        #       if (!systemKeys.includes(key) && value && value.toString().trim()) {
+        #         process.env[key.toUpperCase()] = value.toString();
+        #       }
+        #     });
+        #     
+        #     console.log('Dynamic environment variables loaded from secret');
+        #   } catch (error) {
+        #     console.error('Failed to load dynamic environment variables:', error);
+        #   }
+        # }
+        # ```
+
+    def add_dynamic_secret_environment_variables(self, secret_arn: str, field_mapping: dict = None):
+        """
+        Add environment variables that will be dynamically loaded from a secret.
+        
+        Args:
+            secret_arn: ARN of the secret to load from
+            field_mapping: Optional mapping of secret fields to environment variable names
+                          If None, all fields will be loaded as environment variables
+        """
+        if field_mapping:
+            # Add specific field mappings as secrets
+            for env_var_name, secret_field in field_mapping.items():
+                self.container.add_secret(
+                    env_var_name,
+                    ecs.Secret.from_secrets_manager(secret_arn, field=secret_field)
+                )
+        else:
+            # Add the secret ARN so the application can load all fields dynamically
+            self.container.add_environment("DYNAMIC_SECRET_ARN", secret_arn)
+
+    def add_app_secret_environment_variables(self, field_mapping: dict):
+        """
+        Add environment variables from the app secret using field mapping.
+        
+        Args:
+            field_mapping: Dictionary mapping environment variable names to secret field names
+                          Example: {"SMTP_HOST": "smtp_host", "GOOGLE_CLIENT_ID": "google_client_id"}
+        """
+        for env_var_name, secret_field in field_mapping.items():
+            self.container.add_secret(
+                env_var_name,
+                ecs.Secret.from_secrets_manager(self.app_secret, field=secret_field)
+            )
+
+    def add_ssl_certificate(self, certificate_arn: str = None, domain_name: str = None):
+        """
+        Add SSL certificate to the load balancer.
+        
+        Args:
+            certificate_arn: ARN of an existing ACM certificate (recommended for production)
+            domain_name: Domain name to create a new certificate for (requires DNS validation)
+        """
+        if certificate_arn:
+            # Use existing certificate
+            certificate = acm.Certificate.from_certificate_arn(
+                self, f"{self.project_name}-imported-cert", certificate_arn
+            )
+            self._update_load_balancer_with_certificate(certificate)
+        elif domain_name:
+            # Create new certificate
+            certificate = acm.Certificate(
+                self, f"{self.project_name}-certificate",
+                domain_name=domain_name,
+                validation=acm.CertificateValidation.from_dns()
+            )
+            self._update_load_balancer_with_certificate(certificate)
+        else:
+            raise ValueError("Either certificate_arn or domain_name must be provided")
+
+    def _update_load_balancer_with_certificate(self, certificate):
+        """Update the load balancer configuration with SSL certificate"""
+        
+        # Update HTTP listener to redirect to HTTPS
+        self.listener = self.load_balancer.add_listener(
+            f"{self.project_name}-listener-updated",
+            port=80,
+            protocol=elbv2.ApplicationProtocol.HTTP,
+            default_action=elbv2.ListenerAction.redirect(
+                protocol="HTTPS", port="443", permanent=True
+            )
+        )
+        
+        # Add HTTPS listener
+        self.https_listener = self.load_balancer.add_listener(
+            f"{self.project_name}-https-listener-updated",
+            port=443,
+            protocol=elbv2.ApplicationProtocol.HTTPS,
+            certificates=[elbv2.ListenerCertificate.from_acm_certificate(certificate)],
+            default_action=elbv2.ListenerAction.forward([self.target_group])
+        )
+        
+        # URL should be updated in the app_secret as field "url" for HTTPS
+        # This allows manual updates to propagate without CDK redeployment
 
     def _create_ecs_cluster(self):
         """Create ECS Cluster with Fargate capacity providers"""
@@ -277,6 +405,10 @@ class ApplicationStack(Stack):
                 "DATABASE_URL": ecs.Secret.from_secrets_manager(
                     self.database_secret,
                     field="DATABASE_URL"
+                ),
+                "URL": ecs.Secret.from_secrets_manager(
+                    self.app_secret,
+                    field="URL"
                 )
             },
             health_check=ecs.HealthCheck(

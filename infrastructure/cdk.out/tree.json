@@ -3378,1632 +3378,6 @@
           "version": "2.183.0"
         }
       },
-      "outline-cicd-dev": {
-        "id": "outline-cicd-dev",
-        "path": "outline-cicd-dev",
-        "children": {
-          "outline-repository": {
-            "id": "outline-repository",
-            "path": "outline-cicd-dev/outline-repository",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "outline-cicd-dev/outline-repository/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::ECR::Repository",
-                  "aws:cdk:cloudformation:props": {
-                    "imageScanningConfiguration": {
-                      "scanOnPush": true
-                    },
-                    "lifecyclePolicy": {
-                      "lifecyclePolicyText": "{\"rules\":[{\"rulePriority\":1,\"description\":\"Keep only recent images\",\"selection\":{\"tagStatus\":\"any\",\"countType\":\"imageCountMoreThan\",\"countNumber\":10},\"action\":{\"type\":\"expire\"}}]}"
-                    },
-                    "repositoryName": "outline-dev",
-                    "tags": [
-                      {
-                        "key": "CostCenter",
-                        "value": "Engineering"
-                      },
-                      {
-                        "key": "DeploymentDate",
-                        "value": "Unknown"
-                      },
-                      {
-                        "key": "Environment",
-                        "value": "dev"
-                      },
-                      {
-                        "key": "ManagedBy",
-                        "value": "CDK"
-                      },
-                      {
-                        "key": "Name",
-                        "value": "outline-dev-ecr-repo"
-                      },
-                      {
-                        "key": "Owner",
-                        "value": "DevOps"
-                      },
-                      {
-                        "key": "Project",
-                        "value": "outline"
-                      },
-                      {
-                        "key": "Purpose",
-                        "value": "Outline Knowledge Base"
-                      },
-                      {
-                        "key": "Type",
-                        "value": "ECRRepository"
-                      }
-                    ]
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ecr.CfnRepository",
-                  "version": "2.183.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_ecr.Repository",
-              "version": "2.183.0",
-              "metadata": []
-            }
-          },
-          "outline-codebuild-logs": {
-            "id": "outline-codebuild-logs",
-            "path": "outline-cicd-dev/outline-codebuild-logs",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "outline-cicd-dev/outline-codebuild-logs/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
-                  "aws:cdk:cloudformation:props": {
-                    "logGroupName": "/aws/codebuild/outline-dev",
-                    "retentionInDays": 7,
-                    "tags": [
-                      {
-                        "key": "CostCenter",
-                        "value": "Engineering"
-                      },
-                      {
-                        "key": "DeploymentDate",
-                        "value": "Unknown"
-                      },
-                      {
-                        "key": "Environment",
-                        "value": "dev"
-                      },
-                      {
-                        "key": "ManagedBy",
-                        "value": "CDK"
-                      },
-                      {
-                        "key": "Name",
-                        "value": "outline-dev-codebuild-logs"
-                      },
-                      {
-                        "key": "Owner",
-                        "value": "DevOps"
-                      },
-                      {
-                        "key": "Project",
-                        "value": "outline"
-                      },
-                      {
-                        "key": "Purpose",
-                        "value": "Outline Knowledge Base"
-                      },
-                      {
-                        "key": "Type",
-                        "value": "LogGroup"
-                      }
-                    ]
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_logs.CfnLogGroup",
-                  "version": "2.183.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_logs.LogGroup",
-              "version": "2.183.0",
-              "metadata": []
-            }
-          },
-          "outline-codebuild-service-role": {
-            "id": "outline-codebuild-service-role",
-            "path": "outline-cicd-dev/outline-codebuild-service-role",
-            "children": {
-              "Importoutline-codebuild-service-role": {
-                "id": "Importoutline-codebuild-service-role",
-                "path": "outline-cicd-dev/outline-codebuild-service-role/Importoutline-codebuild-service-role",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.Resource",
-                  "version": "2.183.0",
-                  "metadata": []
-                }
-              },
-              "Resource": {
-                "id": "Resource",
-                "path": "outline-cicd-dev/outline-codebuild-service-role/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                  "aws:cdk:cloudformation:props": {
-                    "assumeRolePolicyDocument": {
-                      "Statement": [
-                        {
-                          "Action": "sts:AssumeRole",
-                          "Effect": "Allow",
-                          "Principal": {
-                            "Service": "codebuild.amazonaws.com"
-                          }
-                        }
-                      ],
-                      "Version": "2012-10-17"
-                    },
-                    "managedPolicyArns": [
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:",
-                            {
-                              "Ref": "AWS::Partition"
-                            },
-                            ":iam::aws:policy/service-role/AWSCodeBuildServiceRole"
-                          ]
-                        ]
-                      }
-                    ],
-                    "tags": [
-                      {
-                        "key": "CostCenter",
-                        "value": "Engineering"
-                      },
-                      {
-                        "key": "DeploymentDate",
-                        "value": "Unknown"
-                      },
-                      {
-                        "key": "Environment",
-                        "value": "dev"
-                      },
-                      {
-                        "key": "ManagedBy",
-                        "value": "CDK"
-                      },
-                      {
-                        "key": "Name",
-                        "value": "outline-dev-codebuild-role"
-                      },
-                      {
-                        "key": "Owner",
-                        "value": "DevOps"
-                      },
-                      {
-                        "key": "Project",
-                        "value": "outline"
-                      },
-                      {
-                        "key": "Purpose",
-                        "value": "Outline Knowledge Base"
-                      },
-                      {
-                        "key": "Type",
-                        "value": "IAMRole"
-                      }
-                    ]
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                  "version": "2.183.0"
-                }
-              },
-              "DefaultPolicy": {
-                "id": "DefaultPolicy",
-                "path": "outline-cicd-dev/outline-codebuild-service-role/DefaultPolicy",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "outline-cicd-dev/outline-codebuild-service-role/DefaultPolicy/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                      "aws:cdk:cloudformation:props": {
-                        "policyDocument": {
-                          "Statement": [
-                            {
-                              "Action": [
-                                "ecr:BatchCheckLayerAvailability",
-                                "ecr:BatchGetImage",
-                                "ecr:CompleteLayerUpload",
-                                "ecr:GetAuthorizationToken",
-                                "ecr:GetDownloadUrlForLayer",
-                                "ecr:InitiateLayerUpload",
-                                "ecr:PutImage",
-                                "ecr:UploadLayerPart",
-                                "ecs:DescribeServices",
-                                "ecs:DescribeTaskDefinition",
-                                "ecs:DescribeTasks",
-                                "ecs:ListTasks",
-                                "ecs:RegisterTaskDefinition",
-                                "ecs:UpdateService",
-                                "iam:PassRole"
-                              ],
-                              "Effect": "Allow",
-                              "Resource": "*"
-                            },
-                            {
-                              "Action": [
-                                "logs:CreateLogStream",
-                                "logs:PutLogEvents"
-                              ],
-                              "Effect": "Allow",
-                              "Resource": {
-                                "Fn::GetAtt": [
-                                  "outlinecodebuildlogs323DA7A5",
-                                  "Arn"
-                                ]
-                              }
-                            },
-                            {
-                              "Action": [
-                                "logs:CreateLogGroup",
-                                "logs:CreateLogStream",
-                                "logs:PutLogEvents"
-                              ],
-                              "Effect": "Allow",
-                              "Resource": [
-                                {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:aws:logs:us-east-2:530374903628:log-group:/aws/codebuild/",
-                                      {
-                                        "Ref": "outlinecodebuildproject45A97EDF"
-                                      },
-                                      ":*"
-                                    ]
-                                  ]
-                                },
-                                {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:aws:logs:us-east-2:530374903628:log-group:/aws/codebuild/",
-                                      {
-                                        "Ref": "outlinecodebuildproject45A97EDF"
-                                      }
-                                    ]
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "Action": [
-                                "codebuild:BatchPutCodeCoverages",
-                                "codebuild:BatchPutTestCases",
-                                "codebuild:CreateReport",
-                                "codebuild:CreateReportGroup",
-                                "codebuild:UpdateReport"
-                              ],
-                              "Effect": "Allow",
-                              "Resource": {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    "arn:aws:codebuild:us-east-2:530374903628:report-group/",
-                                    {
-                                      "Ref": "outlinecodebuildproject45A97EDF"
-                                    },
-                                    "-*"
-                                  ]
-                                ]
-                              }
-                            },
-                            {
-                              "Action": [
-                                "s3:Abort*",
-                                "s3:DeleteObject*",
-                                "s3:GetBucket*",
-                                "s3:GetObject*",
-                                "s3:List*",
-                                "s3:PutObject",
-                                "s3:PutObjectLegalHold",
-                                "s3:PutObjectRetention",
-                                "s3:PutObjectTagging",
-                                "s3:PutObjectVersionTagging"
-                              ],
-                              "Effect": "Allow",
-                              "Resource": [
-                                {
-                                  "Fn::GetAtt": [
-                                    "outlinepipelineArtifactsBucket0B7E7473",
-                                    "Arn"
-                                  ]
-                                },
-                                {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      {
-                                        "Fn::GetAtt": [
-                                          "outlinepipelineArtifactsBucket0B7E7473",
-                                          "Arn"
-                                        ]
-                                      },
-                                      "/*"
-                                    ]
-                                  ]
-                                }
-                              ]
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "policyName": "outlinecodebuildserviceroleDefaultPolicy5BCF1357",
-                        "roles": [
-                          {
-                            "Ref": "outlinecodebuildservicerole65BEF9A0"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                      "version": "2.183.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Policy",
-                  "version": "2.183.0",
-                  "metadata": []
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_iam.Role",
-              "version": "2.183.0",
-              "metadata": []
-            }
-          },
-          "outline-codebuild-project": {
-            "id": "outline-codebuild-project",
-            "path": "outline-cicd-dev/outline-codebuild-project",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "outline-cicd-dev/outline-codebuild-project/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::CodeBuild::Project",
-                  "aws:cdk:cloudformation:props": {
-                    "artifacts": {
-                      "type": "NO_ARTIFACTS"
-                    },
-                    "cache": {
-                      "type": "LOCAL",
-                      "modes": [
-                        "LOCAL_DOCKER_LAYER_CACHE"
-                      ]
-                    },
-                    "description": "CodeBuild project for outline dev",
-                    "encryptionKey": "alias/aws/s3",
-                    "environment": {
-                      "type": "LINUX_CONTAINER",
-                      "image": "aws/codebuild/amazonlinux2-x86_64-standard:4.0",
-                      "imagePullCredentialsType": "CODEBUILD",
-                      "privilegedMode": true,
-                      "computeType": "BUILD_GENERAL1_SMALL",
-                      "environmentVariables": [
-                        {
-                          "name": "ENVIRONMENT",
-                          "type": "PLAINTEXT",
-                          "value": "dev"
-                        },
-                        {
-                          "name": "PROJECT_NAME",
-                          "type": "PLAINTEXT",
-                          "value": "outline"
-                        },
-                        {
-                          "name": "AWS_DEFAULT_REGION",
-                          "type": "PLAINTEXT",
-                          "value": "us-east-2"
-                        }
-                      ]
-                    },
-                    "logsConfig": {
-                      "cloudWatchLogs": {
-                        "status": "ENABLED",
-                        "groupName": {
-                          "Ref": "outlinecodebuildlogs323DA7A5"
-                        },
-                        "streamName": "build-log"
-                      }
-                    },
-                    "name": "outline-dev-build",
-                    "serviceRole": {
-                      "Fn::GetAtt": [
-                        "outlinecodebuildservicerole65BEF9A0",
-                        "Arn"
-                      ]
-                    },
-                    "source": {
-                      "type": "NO_SOURCE",
-                      "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"pre_build\": {\n      \"commands\": [\n        \"echo Logging in to Amazon ECR...\",\n        \"aws --version\",\n        \"aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com\",\n        \"REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$PROJECT_NAME-$ENVIRONMENT\",\n        \"COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)\",\n        \"IMAGE_TAG=${COMMIT_HASH:=latest}\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"echo Build started on `date`\",\n        \"echo Building the Docker image...\",\n        \"docker build -t $PROJECT_NAME-$ENVIRONMENT .\",\n        \"docker tag $PROJECT_NAME-$ENVIRONMENT:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG\",\n        \"docker tag $PROJECT_NAME-$ENVIRONMENT:$IMAGE_TAG $REPOSITORY_URI:latest\"\n      ]\n    },\n    \"post_build\": {\n      \"commands\": [\n        \"echo Build completed on `date`\",\n        \"echo Pushing the Docker image...\",\n        \"docker push $REPOSITORY_URI:$IMAGE_TAG\",\n        \"docker push $REPOSITORY_URI:latest\",\n        \"echo Writing image definitions file...\",\n        \"printf '[{\\\"name\\\":\\\"%s\\\",\\\"imageUri\\\":\\\"%s\\\"}]' $PROJECT_NAME-$ENVIRONMENT $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"files\": [\n      \"imagedefinitions.json\"\n    ]\n  }\n}"
-                    },
-                    "tags": [
-                      {
-                        "key": "CostCenter",
-                        "value": "Engineering"
-                      },
-                      {
-                        "key": "DeploymentDate",
-                        "value": "Unknown"
-                      },
-                      {
-                        "key": "Environment",
-                        "value": "dev"
-                      },
-                      {
-                        "key": "ManagedBy",
-                        "value": "CDK"
-                      },
-                      {
-                        "key": "Name",
-                        "value": "outline-dev-codebuild-project"
-                      },
-                      {
-                        "key": "Owner",
-                        "value": "DevOps"
-                      },
-                      {
-                        "key": "Project",
-                        "value": "outline"
-                      },
-                      {
-                        "key": "Purpose",
-                        "value": "Outline Knowledge Base"
-                      },
-                      {
-                        "key": "Type",
-                        "value": "CodeBuildProject"
-                      }
-                    ],
-                    "timeoutInMinutes": 30
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_codebuild.CfnProject",
-                  "version": "2.183.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_codebuild.Project",
-              "version": "2.183.0",
-              "metadata": []
-            }
-          },
-          "outline-codecommit-repo": {
-            "id": "outline-codecommit-repo",
-            "path": "outline-cicd-dev/outline-codecommit-repo",
-            "children": {
-              "outlinecicddevoutlinepipeline8AE70085-main-EventRule": {
-                "id": "outlinecicddevoutlinepipeline8AE70085-main-EventRule",
-                "path": "outline-cicd-dev/outline-codecommit-repo/outlinecicddevoutlinepipeline8AE70085-main-EventRule",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "outline-cicd-dev/outline-codecommit-repo/outlinecicddevoutlinepipeline8AE70085-main-EventRule/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::Events::Rule",
-                      "aws:cdk:cloudformation:props": {
-                        "eventPattern": {
-                          "source": [
-                            "aws.codecommit"
-                          ],
-                          "resources": [
-                            "arn:aws:codecommit:us-east-2:530374903628:outline-dev"
-                          ],
-                          "detail-type": [
-                            "CodeCommit Repository State Change"
-                          ],
-                          "detail": {
-                            "event": [
-                              "referenceCreated",
-                              "referenceUpdated"
-                            ],
-                            "referenceName": [
-                              "main"
-                            ]
-                          }
-                        },
-                        "state": "ENABLED",
-                        "targets": [
-                          {
-                            "id": "Target0",
-                            "arn": {
-                              "Fn::Join": [
-                                "",
-                                [
-                                  "arn:aws:codepipeline:us-east-2:530374903628:",
-                                  {
-                                    "Ref": "outlinepipeline66DFBBCD"
-                                  }
-                                ]
-                              ]
-                            },
-                            "roleArn": {
-                              "Fn::GetAtt": [
-                                "outlinepipelineEventsRole308D37B5",
-                                "Arn"
-                              ]
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_events.CfnRule",
-                      "version": "2.183.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_events.Rule",
-                  "version": "2.183.0",
-                  "metadata": []
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.Resource",
-              "version": "2.183.0",
-              "metadata": []
-            }
-          },
-          "outline-pipeline": {
-            "id": "outline-pipeline",
-            "path": "outline-cicd-dev/outline-pipeline",
-            "children": {
-              "ArtifactsBucket": {
-                "id": "ArtifactsBucket",
-                "path": "outline-cicd-dev/outline-pipeline/ArtifactsBucket",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "outline-cicd-dev/outline-pipeline/ArtifactsBucket/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
-                      "aws:cdk:cloudformation:props": {
-                        "bucketEncryption": {
-                          "serverSideEncryptionConfiguration": [
-                            {
-                              "serverSideEncryptionByDefault": {
-                                "sseAlgorithm": "aws:kms"
-                              }
-                            }
-                          ]
-                        },
-                        "publicAccessBlockConfiguration": {
-                          "blockPublicAcls": true,
-                          "blockPublicPolicy": true,
-                          "ignorePublicAcls": true,
-                          "restrictPublicBuckets": true
-                        },
-                        "tags": [
-                          {
-                            "key": "CostCenter",
-                            "value": "Engineering"
-                          },
-                          {
-                            "key": "DeploymentDate",
-                            "value": "Unknown"
-                          },
-                          {
-                            "key": "Environment",
-                            "value": "dev"
-                          },
-                          {
-                            "key": "ManagedBy",
-                            "value": "CDK"
-                          },
-                          {
-                            "key": "Name",
-                            "value": "outline-dev-pipeline"
-                          },
-                          {
-                            "key": "Owner",
-                            "value": "DevOps"
-                          },
-                          {
-                            "key": "Project",
-                            "value": "outline"
-                          },
-                          {
-                            "key": "Purpose",
-                            "value": "Outline Knowledge Base"
-                          },
-                          {
-                            "key": "Type",
-                            "value": "CodePipeline"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
-                      "version": "2.183.0"
-                    }
-                  },
-                  "Policy": {
-                    "id": "Policy",
-                    "path": "outline-cicd-dev/outline-pipeline/ArtifactsBucket/Policy",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "outline-cicd-dev/outline-pipeline/ArtifactsBucket/Policy/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
-                          "aws:cdk:cloudformation:props": {
-                            "bucket": {
-                              "Ref": "outlinepipelineArtifactsBucket0B7E7473"
-                            },
-                            "policyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "s3:*",
-                                  "Condition": {
-                                    "Bool": {
-                                      "aws:SecureTransport": "false"
-                                    }
-                                  },
-                                  "Effect": "Deny",
-                                  "Principal": {
-                                    "AWS": "*"
-                                  },
-                                  "Resource": [
-                                    {
-                                      "Fn::GetAtt": [
-                                        "outlinepipelineArtifactsBucket0B7E7473",
-                                        "Arn"
-                                      ]
-                                    },
-                                    {
-                                      "Fn::Join": [
-                                        "",
-                                        [
-                                          {
-                                            "Fn::GetAtt": [
-                                              "outlinepipelineArtifactsBucket0B7E7473",
-                                              "Arn"
-                                            ]
-                                          },
-                                          "/*"
-                                        ]
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
-                          "version": "2.183.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
-                      "version": "2.183.0",
-                      "metadata": []
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_s3.Bucket",
-                  "version": "2.183.0",
-                  "metadata": []
-                }
-              },
-              "Role": {
-                "id": "Role",
-                "path": "outline-cicd-dev/outline-pipeline/Role",
-                "children": {
-                  "ImportRole": {
-                    "id": "ImportRole",
-                    "path": "outline-cicd-dev/outline-pipeline/Role/ImportRole",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.183.0",
-                      "metadata": []
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "outline-cicd-dev/outline-pipeline/Role/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                      "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Service": "codepipeline.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "tags": [
-                          {
-                            "key": "CostCenter",
-                            "value": "Engineering"
-                          },
-                          {
-                            "key": "DeploymentDate",
-                            "value": "Unknown"
-                          },
-                          {
-                            "key": "Environment",
-                            "value": "dev"
-                          },
-                          {
-                            "key": "ManagedBy",
-                            "value": "CDK"
-                          },
-                          {
-                            "key": "Name",
-                            "value": "outline-dev-pipeline"
-                          },
-                          {
-                            "key": "Owner",
-                            "value": "DevOps"
-                          },
-                          {
-                            "key": "Project",
-                            "value": "outline"
-                          },
-                          {
-                            "key": "Purpose",
-                            "value": "Outline Knowledge Base"
-                          },
-                          {
-                            "key": "Type",
-                            "value": "CodePipeline"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.183.0"
-                    }
-                  },
-                  "DefaultPolicy": {
-                    "id": "DefaultPolicy",
-                    "path": "outline-cicd-dev/outline-pipeline/Role/DefaultPolicy",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "outline-cicd-dev/outline-pipeline/Role/DefaultPolicy/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                          "aws:cdk:cloudformation:props": {
-                            "policyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": [
-                                    "s3:Abort*",
-                                    "s3:DeleteObject*",
-                                    "s3:GetBucket*",
-                                    "s3:GetObject*",
-                                    "s3:List*",
-                                    "s3:PutObject",
-                                    "s3:PutObjectLegalHold",
-                                    "s3:PutObjectRetention",
-                                    "s3:PutObjectTagging",
-                                    "s3:PutObjectVersionTagging"
-                                  ],
-                                  "Effect": "Allow",
-                                  "Resource": [
-                                    {
-                                      "Fn::GetAtt": [
-                                        "outlinepipelineArtifactsBucket0B7E7473",
-                                        "Arn"
-                                      ]
-                                    },
-                                    {
-                                      "Fn::Join": [
-                                        "",
-                                        [
-                                          {
-                                            "Fn::GetAtt": [
-                                              "outlinepipelineArtifactsBucket0B7E7473",
-                                              "Arn"
-                                            ]
-                                          },
-                                          "/*"
-                                        ]
-                                      ]
-                                    }
-                                  ]
-                                },
-                                {
-                                  "Action": "sts:AssumeRole",
-                                  "Effect": "Allow",
-                                  "Resource": [
-                                    {
-                                      "Fn::GetAtt": [
-                                        "outlinepipelineBuildCodePipelineActionRole459F759F",
-                                        "Arn"
-                                      ]
-                                    },
-                                    {
-                                      "Fn::GetAtt": [
-                                        "outlinepipelineSourceCodePipelineActionRole1A6F7B99",
-                                        "Arn"
-                                      ]
-                                    }
-                                  ]
-                                },
-                                {
-                                  "Action": [
-                                    "codebuild:BatchGetBuilds",
-                                    "codebuild:StartBuild"
-                                  ],
-                                  "Effect": "Allow",
-                                  "Resource": {
-                                    "Fn::GetAtt": [
-                                      "outlinecodebuildproject45A97EDF",
-                                      "Arn"
-                                    ]
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            },
-                            "policyName": "outlinepipelineRoleDefaultPolicyB5D6CAAE",
-                            "roles": [
-                              {
-                                "Ref": "outlinepipelineRole0CCFE4B3"
-                              }
-                            ]
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                          "version": "2.183.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.Policy",
-                      "version": "2.183.0",
-                      "metadata": []
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.183.0",
-                  "metadata": []
-                }
-              },
-              "Resource": {
-                "id": "Resource",
-                "path": "outline-cicd-dev/outline-pipeline/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::CodePipeline::Pipeline",
-                  "aws:cdk:cloudformation:props": {
-                    "artifactStore": {
-                      "type": "S3",
-                      "location": {
-                        "Ref": "outlinepipelineArtifactsBucket0B7E7473"
-                      }
-                    },
-                    "name": "outline-dev-pipeline",
-                    "roleArn": {
-                      "Fn::GetAtt": [
-                        "outlinepipelineRole0CCFE4B3",
-                        "Arn"
-                      ]
-                    },
-                    "stages": [
-                      {
-                        "name": "Source",
-                        "actions": [
-                          {
-                            "name": "Source",
-                            "outputArtifacts": [
-                              {
-                                "name": "SourceArtifact"
-                              }
-                            ],
-                            "actionTypeId": {
-                              "category": "Source",
-                              "version": "1",
-                              "owner": "AWS",
-                              "provider": "CodeCommit"
-                            },
-                            "configuration": {
-                              "RepositoryName": "outline-dev",
-                              "BranchName": "main",
-                              "PollForSourceChanges": false
-                            },
-                            "runOrder": 1,
-                            "roleArn": {
-                              "Fn::GetAtt": [
-                                "outlinepipelineSourceCodePipelineActionRole1A6F7B99",
-                                "Arn"
-                              ]
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        "name": "Build",
-                        "actions": [
-                          {
-                            "name": "Build",
-                            "inputArtifacts": [
-                              {
-                                "name": "SourceArtifact"
-                              }
-                            ],
-                            "outputArtifacts": [
-                              {
-                                "name": "BuildArtifact"
-                              }
-                            ],
-                            "actionTypeId": {
-                              "category": "Build",
-                              "version": "1",
-                              "owner": "AWS",
-                              "provider": "CodeBuild"
-                            },
-                            "configuration": {
-                              "ProjectName": {
-                                "Ref": "outlinecodebuildproject45A97EDF"
-                              },
-                              "EnvironmentVariables": "[{\"name\":\"AWS_ACCOUNT_ID\",\"type\":\"PLAINTEXT\",\"value\":\"530374903628\"}]"
-                            },
-                            "runOrder": 1,
-                            "roleArn": {
-                              "Fn::GetAtt": [
-                                "outlinepipelineBuildCodePipelineActionRole459F759F",
-                                "Arn"
-                              ]
-                            }
-                          }
-                        ]
-                      }
-                    ],
-                    "tags": [
-                      {
-                        "key": "CostCenter",
-                        "value": "Engineering"
-                      },
-                      {
-                        "key": "DeploymentDate",
-                        "value": "Unknown"
-                      },
-                      {
-                        "key": "Environment",
-                        "value": "dev"
-                      },
-                      {
-                        "key": "ManagedBy",
-                        "value": "CDK"
-                      },
-                      {
-                        "key": "Name",
-                        "value": "outline-dev-pipeline"
-                      },
-                      {
-                        "key": "Owner",
-                        "value": "DevOps"
-                      },
-                      {
-                        "key": "Project",
-                        "value": "outline"
-                      },
-                      {
-                        "key": "Purpose",
-                        "value": "Outline Knowledge Base"
-                      },
-                      {
-                        "key": "Type",
-                        "value": "CodePipeline"
-                      }
-                    ]
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_codepipeline.CfnPipeline",
-                  "version": "2.183.0"
-                }
-              },
-              "Source": {
-                "id": "Source",
-                "path": "outline-cicd-dev/outline-pipeline/Source",
-                "children": {
-                  "Source": {
-                    "id": "Source",
-                    "path": "outline-cicd-dev/outline-pipeline/Source/Source",
-                    "children": {
-                      "CodePipelineActionRole": {
-                        "id": "CodePipelineActionRole",
-                        "path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole",
-                        "children": {
-                          "ImportCodePipelineActionRole": {
-                            "id": "ImportCodePipelineActionRole",
-                            "path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/ImportCodePipelineActionRole",
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.Resource",
-                              "version": "2.183.0",
-                              "metadata": []
-                            }
-                          },
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                              "aws:cdk:cloudformation:props": {
-                                "assumeRolePolicyDocument": {
-                                  "Statement": [
-                                    {
-                                      "Action": "sts:AssumeRole",
-                                      "Effect": "Allow",
-                                      "Principal": {
-                                        "AWS": "arn:aws:iam::530374903628:root"
-                                      }
-                                    }
-                                  ],
-                                  "Version": "2012-10-17"
-                                },
-                                "tags": [
-                                  {
-                                    "key": "CostCenter",
-                                    "value": "Engineering"
-                                  },
-                                  {
-                                    "key": "DeploymentDate",
-                                    "value": "Unknown"
-                                  },
-                                  {
-                                    "key": "Environment",
-                                    "value": "dev"
-                                  },
-                                  {
-                                    "key": "ManagedBy",
-                                    "value": "CDK"
-                                  },
-                                  {
-                                    "key": "Name",
-                                    "value": "outline-dev-pipeline"
-                                  },
-                                  {
-                                    "key": "Owner",
-                                    "value": "DevOps"
-                                  },
-                                  {
-                                    "key": "Project",
-                                    "value": "outline"
-                                  },
-                                  {
-                                    "key": "Purpose",
-                                    "value": "Outline Knowledge Base"
-                                  },
-                                  {
-                                    "key": "Type",
-                                    "value": "CodePipeline"
-                                  }
-                                ]
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                              "version": "2.183.0"
-                            }
-                          },
-                          "DefaultPolicy": {
-                            "id": "DefaultPolicy",
-                            "path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/DefaultPolicy",
-                            "children": {
-                              "Resource": {
-                                "id": "Resource",
-                                "path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/DefaultPolicy/Resource",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                                  "aws:cdk:cloudformation:props": {
-                                    "policyDocument": {
-                                      "Statement": [
-                                        {
-                                          "Action": [
-                                            "s3:Abort*",
-                                            "s3:DeleteObject*",
-                                            "s3:GetBucket*",
-                                            "s3:GetObject*",
-                                            "s3:List*",
-                                            "s3:PutObject",
-                                            "s3:PutObjectLegalHold",
-                                            "s3:PutObjectRetention",
-                                            "s3:PutObjectTagging",
-                                            "s3:PutObjectVersionTagging"
-                                          ],
-                                          "Effect": "Allow",
-                                          "Resource": [
-                                            {
-                                              "Fn::GetAtt": [
-                                                "outlinepipelineArtifactsBucket0B7E7473",
-                                                "Arn"
-                                              ]
-                                            },
-                                            {
-                                              "Fn::Join": [
-                                                "",
-                                                [
-                                                  {
-                                                    "Fn::GetAtt": [
-                                                      "outlinepipelineArtifactsBucket0B7E7473",
-                                                      "Arn"
-                                                    ]
-                                                  },
-                                                  "/*"
-                                                ]
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "Action": [
-                                            "codecommit:CancelUploadArchive",
-                                            "codecommit:GetBranch",
-                                            "codecommit:GetCommit",
-                                            "codecommit:GetUploadArchiveStatus",
-                                            "codecommit:UploadArchive"
-                                          ],
-                                          "Effect": "Allow",
-                                          "Resource": "arn:aws:codecommit:us-east-2:530374903628:outline-dev"
-                                        }
-                                      ],
-                                      "Version": "2012-10-17"
-                                    },
-                                    "policyName": "outlinepipelineSourceCodePipelineActionRoleDefaultPolicy028C2194",
-                                    "roles": [
-                                      {
-                                        "Ref": "outlinepipelineSourceCodePipelineActionRole1A6F7B99"
-                                      }
-                                    ]
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                                  "version": "2.183.0"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_iam.Policy",
-                              "version": "2.183.0",
-                              "metadata": []
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.Role",
-                          "version": "2.183.0",
-                          "metadata": []
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "constructs.Construct",
-                      "version": "10.4.2"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "constructs.Construct",
-                  "version": "10.4.2"
-                }
-              },
-              "EventsRole": {
-                "id": "EventsRole",
-                "path": "outline-cicd-dev/outline-pipeline/EventsRole",
-                "children": {
-                  "ImportEventsRole": {
-                    "id": "ImportEventsRole",
-                    "path": "outline-cicd-dev/outline-pipeline/EventsRole/ImportEventsRole",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.183.0",
-                      "metadata": []
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "outline-cicd-dev/outline-pipeline/EventsRole/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                      "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Service": "events.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "tags": [
-                          {
-                            "key": "CostCenter",
-                            "value": "Engineering"
-                          },
-                          {
-                            "key": "DeploymentDate",
-                            "value": "Unknown"
-                          },
-                          {
-                            "key": "Environment",
-                            "value": "dev"
-                          },
-                          {
-                            "key": "ManagedBy",
-                            "value": "CDK"
-                          },
-                          {
-                            "key": "Name",
-                            "value": "outline-dev-pipeline"
-                          },
-                          {
-                            "key": "Owner",
-                            "value": "DevOps"
-                          },
-                          {
-                            "key": "Project",
-                            "value": "outline"
-                          },
-                          {
-                            "key": "Purpose",
-                            "value": "Outline Knowledge Base"
-                          },
-                          {
-                            "key": "Type",
-                            "value": "CodePipeline"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.183.0"
-                    }
-                  },
-                  "DefaultPolicy": {
-                    "id": "DefaultPolicy",
-                    "path": "outline-cicd-dev/outline-pipeline/EventsRole/DefaultPolicy",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "outline-cicd-dev/outline-pipeline/EventsRole/DefaultPolicy/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                          "aws:cdk:cloudformation:props": {
-                            "policyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "codepipeline:StartPipelineExecution",
-                                  "Effect": "Allow",
-                                  "Resource": {
-                                    "Fn::Join": [
-                                      "",
-                                      [
-                                        "arn:aws:codepipeline:us-east-2:530374903628:",
-                                        {
-                                          "Ref": "outlinepipeline66DFBBCD"
-                                        }
-                                      ]
-                                    ]
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            },
-                            "policyName": "outlinepipelineEventsRoleDefaultPolicyA8376067",
-                            "roles": [
-                              {
-                                "Ref": "outlinepipelineEventsRole308D37B5"
-                              }
-                            ]
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                          "version": "2.183.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.Policy",
-                      "version": "2.183.0",
-                      "metadata": []
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.183.0",
-                  "metadata": []
-                }
-              },
-              "Build": {
-                "id": "Build",
-                "path": "outline-cicd-dev/outline-pipeline/Build",
-                "children": {
-                  "Build": {
-                    "id": "Build",
-                    "path": "outline-cicd-dev/outline-pipeline/Build/Build",
-                    "children": {
-                      "CodePipelineActionRole": {
-                        "id": "CodePipelineActionRole",
-                        "path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole",
-                        "children": {
-                          "ImportCodePipelineActionRole": {
-                            "id": "ImportCodePipelineActionRole",
-                            "path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/ImportCodePipelineActionRole",
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.Resource",
-                              "version": "2.183.0",
-                              "metadata": []
-                            }
-                          },
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                              "aws:cdk:cloudformation:props": {
-                                "assumeRolePolicyDocument": {
-                                  "Statement": [
-                                    {
-                                      "Action": "sts:AssumeRole",
-                                      "Effect": "Allow",
-                                      "Principal": {
-                                        "AWS": "arn:aws:iam::530374903628:root"
-                                      }
-                                    }
-                                  ],
-                                  "Version": "2012-10-17"
-                                },
-                                "tags": [
-                                  {
-                                    "key": "CostCenter",
-                                    "value": "Engineering"
-                                  },
-                                  {
-                                    "key": "DeploymentDate",
-                                    "value": "Unknown"
-                                  },
-                                  {
-                                    "key": "Environment",
-                                    "value": "dev"
-                                  },
-                                  {
-                                    "key": "ManagedBy",
-                                    "value": "CDK"
-                                  },
-                                  {
-                                    "key": "Name",
-                                    "value": "outline-dev-pipeline"
-                                  },
-                                  {
-                                    "key": "Owner",
-                                    "value": "DevOps"
-                                  },
-                                  {
-                                    "key": "Project",
-                                    "value": "outline"
-                                  },
-                                  {
-                                    "key": "Purpose",
-                                    "value": "Outline Knowledge Base"
-                                  },
-                                  {
-                                    "key": "Type",
-                                    "value": "CodePipeline"
-                                  }
-                                ]
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                              "version": "2.183.0"
-                            }
-                          },
-                          "DefaultPolicy": {
-                            "id": "DefaultPolicy",
-                            "path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/DefaultPolicy",
-                            "children": {
-                              "Resource": {
-                                "id": "Resource",
-                                "path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/DefaultPolicy/Resource",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                                  "aws:cdk:cloudformation:props": {
-                                    "policyDocument": {
-                                      "Statement": [
-                                        {
-                                          "Action": [
-                                            "codebuild:BatchGetBuilds",
-                                            "codebuild:StartBuild",
-                                            "codebuild:StopBuild"
-                                          ],
-                                          "Effect": "Allow",
-                                          "Resource": {
-                                            "Fn::GetAtt": [
-                                              "outlinecodebuildproject45A97EDF",
-                                              "Arn"
-                                            ]
-                                          }
-                                        }
-                                      ],
-                                      "Version": "2012-10-17"
-                                    },
-                                    "policyName": "outlinepipelineBuildCodePipelineActionRoleDefaultPolicy53883B80",
-                                    "roles": [
-                                      {
-                                        "Ref": "outlinepipelineBuildCodePipelineActionRole459F759F"
-                                      }
-                                    ]
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                                  "version": "2.183.0"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_iam.Policy",
-                              "version": "2.183.0",
-                              "metadata": []
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.Role",
-                          "version": "2.183.0",
-                          "metadata": []
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "constructs.Construct",
-                      "version": "10.4.2"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "constructs.Construct",
-                  "version": "10.4.2"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_codepipeline.Pipeline",
-              "version": "2.183.0",
-              "metadata": []
-            }
-          },
-          "CodeBuildProjectName": {
-            "id": "CodeBuildProjectName",
-            "path": "outline-cicd-dev/CodeBuildProjectName",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.183.0"
-            }
-          },
-          "CodePipelineName": {
-            "id": "CodePipelineName",
-            "path": "outline-cicd-dev/CodePipelineName",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.183.0"
-            }
-          },
-          "CodePipelineUrl": {
-            "id": "CodePipelineUrl",
-            "path": "outline-cicd-dev/CodePipelineUrl",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.183.0"
-            }
-          },
-          "CDKMetadata": {
-            "id": "CDKMetadata",
-            "path": "outline-cicd-dev/CDKMetadata",
-            "children": {
-              "Default": {
-                "id": "Default",
-                "path": "outline-cicd-dev/CDKMetadata/Default",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.CfnResource",
-                  "version": "2.183.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "constructs.Construct",
-              "version": "10.4.2"
-            }
-          },
-          "Exports": {
-            "id": "Exports",
-            "path": "outline-cicd-dev/Exports",
-            "children": {
-              "Output{\"Fn::GetAtt\":[\"outlinerepository74C23DCD\",\"Arn\"]}": {
-                "id": "Output{\"Fn::GetAtt\":[\"outlinerepository74C23DCD\",\"Arn\"]}",
-                "path": "outline-cicd-dev/Exports/Output{\"Fn::GetAtt\":[\"outlinerepository74C23DCD\",\"Arn\"]}",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.CfnOutput",
-                  "version": "2.183.0"
-                }
-              },
-              "Output{\"Ref\":\"outlinerepository74C23DCD\"}": {
-                "id": "Output{\"Ref\":\"outlinerepository74C23DCD\"}",
-                "path": "outline-cicd-dev/Exports/Output{\"Ref\":\"outlinerepository74C23DCD\"}",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.CfnOutput",
-                  "version": "2.183.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "constructs.Construct",
-              "version": "10.4.2"
-            }
-          },
-          "BootstrapVersion": {
-            "id": "BootstrapVersion",
-            "path": "outline-cicd-dev/BootstrapVersion",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnParameter",
-              "version": "2.183.0"
-            }
-          },
-          "CheckBootstrapVersion": {
-            "id": "CheckBootstrapVersion",
-            "path": "outline-cicd-dev/CheckBootstrapVersion",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnRule",
-              "version": "2.183.0"
-            }
-          }
-        },
-        "constructInfo": {
-          "fqn": "aws-cdk-lib.Stack",
-          "version": "2.183.0"
-        }
-      },
       "outline-application-dev": {
         "id": "outline-application-dev",
         "path": "outline-application-dev",
@@ -5073,6 +3447,15 @@
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_ecs.Cluster",
+              "version": "2.183.0",
+              "metadata": []
+            }
+          },
+          "outline-repository": {
+            "id": "outline-repository",
+            "path": "outline-application-dev/outline-repository",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ecr.RepositoryBase",
               "version": "2.183.0",
               "metadata": []
             }
@@ -5393,9 +3776,7 @@
                                 "ecr:GetDownloadUrlForLayer"
                               ],
                               "Effect": "Allow",
-                              "Resource": {
-                                "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
-                              }
+                              "Resource": "arn:aws:ecr:us-east-2:530374903628:repository/outline-dev"
                             },
                             {
                               "Action": "ecr:GetAuthorizationToken",
@@ -5480,42 +3861,11 @@
                           "Fn::Join": [
                             "",
                             [
-                              {
-                                "Fn::Select": [
-                                  4,
-                                  {
-                                    "Fn::Split": [
-                                      ":",
-                                      {
-                                        "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              ".dkr.ecr.",
-                              {
-                                "Fn::Select": [
-                                  3,
-                                  {
-                                    "Fn::Split": [
-                                      ":",
-                                      {
-                                        "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              ".",
+                              "530374903628.dkr.ecr.us-east-2.",
                               {
                                 "Ref": "AWS::URLSuffix"
                               },
-                              "/",
-                              {
-                                "Fn::ImportValue": "outline-cicd-dev:ExportsOutputRefoutlinerepository74C23DCD7197F1BE"
-                              },
-                              ":latest"
+                              "/outline-dev:latest"
                             ]
                           ]
                         },
@@ -6498,6 +4848,32 @@
               "version": "10.4.2"
             }
           },
+          "Exports": {
+            "id": "Exports",
+            "path": "outline-application-dev/Exports",
+            "children": {
+              "Output{\"Ref\":\"outlinecluster82FEBE51\"}": {
+                "id": "Output{\"Ref\":\"outlinecluster82FEBE51\"}",
+                "path": "outline-application-dev/Exports/Output{\"Ref\":\"outlinecluster82FEBE51\"}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.183.0"
+                }
+              },
+              "Output{\"Fn::GetAtt\":[\"outlineserviceServiceDB8F6A21\",\"Name\"]}": {
+                "id": "Output{\"Fn::GetAtt\":[\"outlineserviceServiceDB8F6A21\",\"Name\"]}",
+                "path": "outline-application-dev/Exports/Output{\"Fn::GetAtt\":[\"outlineserviceServiceDB8F6A21\",\"Name\"]}",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.183.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.2"
+            }
+          },
           "BootstrapVersion": {
             "id": "BootstrapVersion",
             "path": "outline-application-dev/BootstrapVersion",
@@ -6509,6 +4885,1773 @@
           "CheckBootstrapVersion": {
             "id": "CheckBootstrapVersion",
             "path": "outline-application-dev/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.183.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.183.0"
+        }
+      },
+      "outline-cicd-dev": {
+        "id": "outline-cicd-dev",
+        "path": "outline-cicd-dev",
+        "children": {
+          "outline-codebuild-logs": {
+            "id": "outline-codebuild-logs",
+            "path": "outline-cicd-dev/outline-codebuild-logs",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "outline-cicd-dev/outline-codebuild-logs/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "logGroupName": "/aws/codebuild/outline-dev",
+                    "retentionInDays": 7,
+                    "tags": [
+                      {
+                        "key": "CostCenter",
+                        "value": "Engineering"
+                      },
+                      {
+                        "key": "DeploymentDate",
+                        "value": "Unknown"
+                      },
+                      {
+                        "key": "Environment",
+                        "value": "dev"
+                      },
+                      {
+                        "key": "ManagedBy",
+                        "value": "CDK"
+                      },
+                      {
+                        "key": "Name",
+                        "value": "outline-dev-codebuild-logs"
+                      },
+                      {
+                        "key": "Owner",
+                        "value": "DevOps"
+                      },
+                      {
+                        "key": "Project",
+                        "value": "outline"
+                      },
+                      {
+                        "key": "Purpose",
+                        "value": "Outline Knowledge Base"
+                      },
+                      {
+                        "key": "Type",
+                        "value": "LogGroup"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.CfnLogGroup",
+                  "version": "2.183.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_logs.LogGroup",
+              "version": "2.183.0",
+              "metadata": []
+            }
+          },
+          "outline-codebuild-service-role": {
+            "id": "outline-codebuild-service-role",
+            "path": "outline-cicd-dev/outline-codebuild-service-role",
+            "children": {
+              "Importoutline-codebuild-service-role": {
+                "id": "Importoutline-codebuild-service-role",
+                "path": "outline-cicd-dev/outline-codebuild-service-role/Importoutline-codebuild-service-role",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.183.0",
+                  "metadata": []
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "outline-cicd-dev/outline-codebuild-service-role/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "codebuild.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "managedPolicyArns": [
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/service-role/AWSCodeBuildServiceRole"
+                          ]
+                        ]
+                      }
+                    ],
+                    "tags": [
+                      {
+                        "key": "CostCenter",
+                        "value": "Engineering"
+                      },
+                      {
+                        "key": "DeploymentDate",
+                        "value": "Unknown"
+                      },
+                      {
+                        "key": "Environment",
+                        "value": "dev"
+                      },
+                      {
+                        "key": "ManagedBy",
+                        "value": "CDK"
+                      },
+                      {
+                        "key": "Name",
+                        "value": "outline-dev-codebuild-role"
+                      },
+                      {
+                        "key": "Owner",
+                        "value": "DevOps"
+                      },
+                      {
+                        "key": "Project",
+                        "value": "outline"
+                      },
+                      {
+                        "key": "Purpose",
+                        "value": "Outline Knowledge Base"
+                      },
+                      {
+                        "key": "Type",
+                        "value": "IAMRole"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                  "version": "2.183.0"
+                }
+              },
+              "DefaultPolicy": {
+                "id": "DefaultPolicy",
+                "path": "outline-cicd-dev/outline-codebuild-service-role/DefaultPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "outline-cicd-dev/outline-codebuild-service-role/DefaultPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "ecr:BatchCheckLayerAvailability",
+                                "ecr:BatchGetImage",
+                                "ecr:CompleteLayerUpload",
+                                "ecr:GetAuthorizationToken",
+                                "ecr:GetDownloadUrlForLayer",
+                                "ecr:InitiateLayerUpload",
+                                "ecr:PutImage",
+                                "ecr:UploadLayerPart",
+                                "ecs:DescribeServices",
+                                "ecs:DescribeTaskDefinition",
+                                "ecs:DescribeTasks",
+                                "ecs:ListTasks",
+                                "ecs:RegisterTaskDefinition",
+                                "ecs:UpdateService",
+                                "iam:PassRole"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            },
+                            {
+                              "Action": [
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::GetAtt": [
+                                  "outlinecodebuildlogs323DA7A5",
+                                  "Arn"
+                                ]
+                              }
+                            },
+                            {
+                              "Action": [
+                                "logs:CreateLogGroup",
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": [
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:logs:us-east-2:530374903628:log-group:/aws/codebuild/",
+                                      {
+                                        "Ref": "outlinecodebuildproject45A97EDF"
+                                      },
+                                      ":*"
+                                    ]
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:logs:us-east-2:530374903628:log-group:/aws/codebuild/",
+                                      {
+                                        "Ref": "outlinecodebuildproject45A97EDF"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Action": [
+                                "codebuild:BatchPutCodeCoverages",
+                                "codebuild:BatchPutTestCases",
+                                "codebuild:CreateReport",
+                                "codebuild:CreateReportGroup",
+                                "codebuild:UpdateReport"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:aws:codebuild:us-east-2:530374903628:report-group/",
+                                    {
+                                      "Ref": "outlinecodebuildproject45A97EDF"
+                                    },
+                                    "-*"
+                                  ]
+                                ]
+                              }
+                            },
+                            {
+                              "Action": [
+                                "s3:Abort*",
+                                "s3:DeleteObject*",
+                                "s3:GetBucket*",
+                                "s3:GetObject*",
+                                "s3:List*",
+                                "s3:PutObject",
+                                "s3:PutObjectLegalHold",
+                                "s3:PutObjectRetention",
+                                "s3:PutObjectTagging",
+                                "s3:PutObjectVersionTagging"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "outlinepipelineArtifactsBucket0B7E7473",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "outlinepipelineArtifactsBucket0B7E7473",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "outlinecodebuildserviceroleDefaultPolicy5BCF1357",
+                        "roles": [
+                          {
+                            "Ref": "outlinecodebuildservicerole65BEF9A0"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.183.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.183.0",
+                  "metadata": []
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Role",
+              "version": "2.183.0",
+              "metadata": []
+            }
+          },
+          "outline-codebuild-project": {
+            "id": "outline-codebuild-project",
+            "path": "outline-cicd-dev/outline-codebuild-project",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "outline-cicd-dev/outline-codebuild-project/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CodeBuild::Project",
+                  "aws:cdk:cloudformation:props": {
+                    "artifacts": {
+                      "type": "NO_ARTIFACTS"
+                    },
+                    "cache": {
+                      "type": "LOCAL",
+                      "modes": [
+                        "LOCAL_DOCKER_LAYER_CACHE"
+                      ]
+                    },
+                    "description": "CodeBuild project for outline dev",
+                    "encryptionKey": "alias/aws/s3",
+                    "environment": {
+                      "type": "LINUX_CONTAINER",
+                      "image": "aws/codebuild/amazonlinux2-x86_64-standard:4.0",
+                      "imagePullCredentialsType": "CODEBUILD",
+                      "privilegedMode": true,
+                      "computeType": "BUILD_GENERAL1_SMALL",
+                      "environmentVariables": [
+                        {
+                          "name": "ENVIRONMENT",
+                          "type": "PLAINTEXT",
+                          "value": "dev"
+                        },
+                        {
+                          "name": "PROJECT_NAME",
+                          "type": "PLAINTEXT",
+                          "value": "outline"
+                        },
+                        {
+                          "name": "AWS_DEFAULT_REGION",
+                          "type": "PLAINTEXT",
+                          "value": "us-east-2"
+                        }
+                      ]
+                    },
+                    "logsConfig": {
+                      "cloudWatchLogs": {
+                        "status": "ENABLED",
+                        "groupName": {
+                          "Ref": "outlinecodebuildlogs323DA7A5"
+                        },
+                        "streamName": "build-log"
+                      }
+                    },
+                    "name": "outline-dev-build",
+                    "serviceRole": {
+                      "Fn::GetAtt": [
+                        "outlinecodebuildservicerole65BEF9A0",
+                        "Arn"
+                      ]
+                    },
+                    "source": {
+                      "type": "NO_SOURCE",
+                      "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"pre_build\": {\n      \"commands\": [\n        \"echo Logging in to Amazon ECR...\",\n        \"aws --version\",\n        \"aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com\",\n        \"REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$PROJECT_NAME-$ENVIRONMENT\",\n        \"COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)\",\n        \"IMAGE_TAG=${COMMIT_HASH:=latest}\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"echo Build started on `date`\",\n        \"echo Building the Docker image...\",\n        \"docker build -t $PROJECT_NAME-$ENVIRONMENT .\",\n        \"docker tag $PROJECT_NAME-$ENVIRONMENT:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG\",\n        \"docker tag $PROJECT_NAME-$ENVIRONMENT:$IMAGE_TAG $REPOSITORY_URI:latest\"\n      ]\n    },\n    \"post_build\": {\n      \"commands\": [\n        \"echo Build completed on `date`\",\n        \"echo Pushing the Docker image...\",\n        \"docker push $REPOSITORY_URI:$IMAGE_TAG\",\n        \"docker push $REPOSITORY_URI:latest\",\n        \"echo Writing image definitions file...\",\n        \"printf '[{\\\"name\\\":\\\"%s\\\",\\\"imageUri\\\":\\\"%s\\\"}]' $PROJECT_NAME-$ENVIRONMENT $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"files\": [\n      \"imagedefinitions.json\"\n    ]\n  }\n}"
+                    },
+                    "tags": [
+                      {
+                        "key": "CostCenter",
+                        "value": "Engineering"
+                      },
+                      {
+                        "key": "DeploymentDate",
+                        "value": "Unknown"
+                      },
+                      {
+                        "key": "Environment",
+                        "value": "dev"
+                      },
+                      {
+                        "key": "ManagedBy",
+                        "value": "CDK"
+                      },
+                      {
+                        "key": "Name",
+                        "value": "outline-dev-codebuild-project"
+                      },
+                      {
+                        "key": "Owner",
+                        "value": "DevOps"
+                      },
+                      {
+                        "key": "Project",
+                        "value": "outline"
+                      },
+                      {
+                        "key": "Purpose",
+                        "value": "Outline Knowledge Base"
+                      },
+                      {
+                        "key": "Type",
+                        "value": "CodeBuildProject"
+                      }
+                    ],
+                    "timeoutInMinutes": 30
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_codebuild.CfnProject",
+                  "version": "2.183.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_codebuild.Project",
+              "version": "2.183.0",
+              "metadata": []
+            }
+          },
+          "outline-codecommit-repo": {
+            "id": "outline-codecommit-repo",
+            "path": "outline-cicd-dev/outline-codecommit-repo",
+            "children": {
+              "outlinecicddevoutlinepipeline8AE70085-main-EventRule": {
+                "id": "outlinecicddevoutlinepipeline8AE70085-main-EventRule",
+                "path": "outline-cicd-dev/outline-codecommit-repo/outlinecicddevoutlinepipeline8AE70085-main-EventRule",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "outline-cicd-dev/outline-codecommit-repo/outlinecicddevoutlinepipeline8AE70085-main-EventRule/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Events::Rule",
+                      "aws:cdk:cloudformation:props": {
+                        "eventPattern": {
+                          "source": [
+                            "aws.codecommit"
+                          ],
+                          "resources": [
+                            "arn:aws:codecommit:us-east-2:530374903628:outline-dev"
+                          ],
+                          "detail-type": [
+                            "CodeCommit Repository State Change"
+                          ],
+                          "detail": {
+                            "event": [
+                              "referenceCreated",
+                              "referenceUpdated"
+                            ],
+                            "referenceName": [
+                              "main"
+                            ]
+                          }
+                        },
+                        "state": "ENABLED",
+                        "targets": [
+                          {
+                            "id": "Target0",
+                            "arn": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:aws:codepipeline:us-east-2:530374903628:",
+                                  {
+                                    "Ref": "outlinepipeline66DFBBCD"
+                                  }
+                                ]
+                              ]
+                            },
+                            "roleArn": {
+                              "Fn::GetAtt": [
+                                "outlinepipelineEventsRole308D37B5",
+                                "Arn"
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_events.CfnRule",
+                      "version": "2.183.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_events.Rule",
+                  "version": "2.183.0",
+                  "metadata": []
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.183.0",
+              "metadata": []
+            }
+          },
+          "outline-pipeline": {
+            "id": "outline-pipeline",
+            "path": "outline-cicd-dev/outline-pipeline",
+            "children": {
+              "ArtifactsBucket": {
+                "id": "ArtifactsBucket",
+                "path": "outline-cicd-dev/outline-pipeline/ArtifactsBucket",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "outline-cicd-dev/outline-pipeline/ArtifactsBucket/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                      "aws:cdk:cloudformation:props": {
+                        "bucketEncryption": {
+                          "serverSideEncryptionConfiguration": [
+                            {
+                              "serverSideEncryptionByDefault": {
+                                "sseAlgorithm": "aws:kms"
+                              }
+                            }
+                          ]
+                        },
+                        "publicAccessBlockConfiguration": {
+                          "blockPublicAcls": true,
+                          "blockPublicPolicy": true,
+                          "ignorePublicAcls": true,
+                          "restrictPublicBuckets": true
+                        },
+                        "tags": [
+                          {
+                            "key": "CostCenter",
+                            "value": "Engineering"
+                          },
+                          {
+                            "key": "DeploymentDate",
+                            "value": "Unknown"
+                          },
+                          {
+                            "key": "Environment",
+                            "value": "dev"
+                          },
+                          {
+                            "key": "ManagedBy",
+                            "value": "CDK"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "outline-dev-pipeline"
+                          },
+                          {
+                            "key": "Owner",
+                            "value": "DevOps"
+                          },
+                          {
+                            "key": "Project",
+                            "value": "outline"
+                          },
+                          {
+                            "key": "Purpose",
+                            "value": "Outline Knowledge Base"
+                          },
+                          {
+                            "key": "Type",
+                            "value": "CodePipeline"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                      "version": "2.183.0"
+                    }
+                  },
+                  "Policy": {
+                    "id": "Policy",
+                    "path": "outline-cicd-dev/outline-pipeline/ArtifactsBucket/Policy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "outline-cicd-dev/outline-pipeline/ArtifactsBucket/Policy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                          "aws:cdk:cloudformation:props": {
+                            "bucket": {
+                              "Ref": "outlinepipelineArtifactsBucket0B7E7473"
+                            },
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "s3:*",
+                                  "Condition": {
+                                    "Bool": {
+                                      "aws:SecureTransport": "false"
+                                    }
+                                  },
+                                  "Effect": "Deny",
+                                  "Principal": {
+                                    "AWS": "*"
+                                  },
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "outlinepipelineArtifactsBucket0B7E7473",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "outlinepipelineArtifactsBucket0B7E7473",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
+                          "version": "2.183.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
+                      "version": "2.183.0",
+                      "metadata": []
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.Bucket",
+                  "version": "2.183.0",
+                  "metadata": []
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "outline-cicd-dev/outline-pipeline/Role",
+                "children": {
+                  "ImportRole": {
+                    "id": "ImportRole",
+                    "path": "outline-cicd-dev/outline-pipeline/Role/ImportRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.183.0",
+                      "metadata": []
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "outline-cicd-dev/outline-pipeline/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "codepipeline.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "tags": [
+                          {
+                            "key": "CostCenter",
+                            "value": "Engineering"
+                          },
+                          {
+                            "key": "DeploymentDate",
+                            "value": "Unknown"
+                          },
+                          {
+                            "key": "Environment",
+                            "value": "dev"
+                          },
+                          {
+                            "key": "ManagedBy",
+                            "value": "CDK"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "outline-dev-pipeline"
+                          },
+                          {
+                            "key": "Owner",
+                            "value": "DevOps"
+                          },
+                          {
+                            "key": "Project",
+                            "value": "outline"
+                          },
+                          {
+                            "key": "Purpose",
+                            "value": "Outline Knowledge Base"
+                          },
+                          {
+                            "key": "Type",
+                            "value": "CodePipeline"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.183.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "outline-cicd-dev/outline-pipeline/Role/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "outline-cicd-dev/outline-pipeline/Role/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "s3:Abort*",
+                                    "s3:DeleteObject*",
+                                    "s3:GetBucket*",
+                                    "s3:GetObject*",
+                                    "s3:List*",
+                                    "s3:PutObject",
+                                    "s3:PutObjectLegalHold",
+                                    "s3:PutObjectRetention",
+                                    "s3:PutObjectTagging",
+                                    "s3:PutObjectVersionTagging"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "outlinepipelineArtifactsBucket0B7E7473",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "outlinepipelineArtifactsBucket0B7E7473",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "outlinepipelineBuildCodePipelineActionRole459F759F",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::GetAtt": [
+                                        "outlinepipelineDeployCodePipelineActionRole089A1383",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::GetAtt": [
+                                        "outlinepipelineSourceCodePipelineActionRole1A6F7B99",
+                                        "Arn"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "codebuild:BatchGetBuilds",
+                                    "codebuild:StartBuild"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "outlinecodebuildproject45A97EDF",
+                                      "Arn"
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "outlinepipelineRoleDefaultPolicyB5D6CAAE",
+                            "roles": [
+                              {
+                                "Ref": "outlinepipelineRole0CCFE4B3"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.183.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.183.0",
+                      "metadata": []
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.183.0",
+                  "metadata": []
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "outline-cicd-dev/outline-pipeline/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CodePipeline::Pipeline",
+                  "aws:cdk:cloudformation:props": {
+                    "artifactStore": {
+                      "type": "S3",
+                      "location": {
+                        "Ref": "outlinepipelineArtifactsBucket0B7E7473"
+                      }
+                    },
+                    "name": "outline-dev-pipeline",
+                    "roleArn": {
+                      "Fn::GetAtt": [
+                        "outlinepipelineRole0CCFE4B3",
+                        "Arn"
+                      ]
+                    },
+                    "stages": [
+                      {
+                        "name": "Source",
+                        "actions": [
+                          {
+                            "name": "Source",
+                            "outputArtifacts": [
+                              {
+                                "name": "SourceArtifact"
+                              }
+                            ],
+                            "actionTypeId": {
+                              "category": "Source",
+                              "version": "1",
+                              "owner": "AWS",
+                              "provider": "CodeCommit"
+                            },
+                            "configuration": {
+                              "RepositoryName": "outline-dev",
+                              "BranchName": "main",
+                              "PollForSourceChanges": false
+                            },
+                            "runOrder": 1,
+                            "roleArn": {
+                              "Fn::GetAtt": [
+                                "outlinepipelineSourceCodePipelineActionRole1A6F7B99",
+                                "Arn"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Build",
+                        "actions": [
+                          {
+                            "name": "Build",
+                            "inputArtifacts": [
+                              {
+                                "name": "SourceArtifact"
+                              }
+                            ],
+                            "outputArtifacts": [
+                              {
+                                "name": "BuildArtifact"
+                              }
+                            ],
+                            "actionTypeId": {
+                              "category": "Build",
+                              "version": "1",
+                              "owner": "AWS",
+                              "provider": "CodeBuild"
+                            },
+                            "configuration": {
+                              "ProjectName": {
+                                "Ref": "outlinecodebuildproject45A97EDF"
+                              },
+                              "EnvironmentVariables": "[{\"name\":\"AWS_ACCOUNT_ID\",\"type\":\"PLAINTEXT\",\"value\":\"530374903628\"}]"
+                            },
+                            "runOrder": 1,
+                            "roleArn": {
+                              "Fn::GetAtt": [
+                                "outlinepipelineBuildCodePipelineActionRole459F759F",
+                                "Arn"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Deploy",
+                        "actions": [
+                          {
+                            "name": "Deploy",
+                            "inputArtifacts": [
+                              {
+                                "name": "BuildArtifact"
+                              }
+                            ],
+                            "actionTypeId": {
+                              "category": "Deploy",
+                              "version": "1",
+                              "owner": "AWS",
+                              "provider": "ECS"
+                            },
+                            "configuration": {
+                              "ClusterName": {
+                                "Fn::ImportValue": "outline-application-dev:ExportsOutputRefoutlinecluster82FEBE5121F5D9C1"
+                              },
+                              "ServiceName": {
+                                "Fn::ImportValue": "outline-application-dev:ExportsOutputFnGetAttoutlineserviceServiceDB8F6A21Name2F63B52F"
+                              },
+                              "FileName": "imagedefinitions.json",
+                              "DeploymentTimeout": 60
+                            },
+                            "runOrder": 1,
+                            "roleArn": {
+                              "Fn::GetAtt": [
+                                "outlinepipelineDeployCodePipelineActionRole089A1383",
+                                "Arn"
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "tags": [
+                      {
+                        "key": "CostCenter",
+                        "value": "Engineering"
+                      },
+                      {
+                        "key": "DeploymentDate",
+                        "value": "Unknown"
+                      },
+                      {
+                        "key": "Environment",
+                        "value": "dev"
+                      },
+                      {
+                        "key": "ManagedBy",
+                        "value": "CDK"
+                      },
+                      {
+                        "key": "Name",
+                        "value": "outline-dev-pipeline"
+                      },
+                      {
+                        "key": "Owner",
+                        "value": "DevOps"
+                      },
+                      {
+                        "key": "Project",
+                        "value": "outline"
+                      },
+                      {
+                        "key": "Purpose",
+                        "value": "Outline Knowledge Base"
+                      },
+                      {
+                        "key": "Type",
+                        "value": "CodePipeline"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_codepipeline.CfnPipeline",
+                  "version": "2.183.0"
+                }
+              },
+              "Source": {
+                "id": "Source",
+                "path": "outline-cicd-dev/outline-pipeline/Source",
+                "children": {
+                  "Source": {
+                    "id": "Source",
+                    "path": "outline-cicd-dev/outline-pipeline/Source/Source",
+                    "children": {
+                      "CodePipelineActionRole": {
+                        "id": "CodePipelineActionRole",
+                        "path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole",
+                        "children": {
+                          "ImportCodePipelineActionRole": {
+                            "id": "ImportCodePipelineActionRole",
+                            "path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/ImportCodePipelineActionRole",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.Resource",
+                              "version": "2.183.0",
+                              "metadata": []
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "AWS": "arn:aws:iam::530374903628:root"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "tags": [
+                                  {
+                                    "key": "CostCenter",
+                                    "value": "Engineering"
+                                  },
+                                  {
+                                    "key": "DeploymentDate",
+                                    "value": "Unknown"
+                                  },
+                                  {
+                                    "key": "Environment",
+                                    "value": "dev"
+                                  },
+                                  {
+                                    "key": "ManagedBy",
+                                    "value": "CDK"
+                                  },
+                                  {
+                                    "key": "Name",
+                                    "value": "outline-dev-pipeline"
+                                  },
+                                  {
+                                    "key": "Owner",
+                                    "value": "DevOps"
+                                  },
+                                  {
+                                    "key": "Project",
+                                    "value": "outline"
+                                  },
+                                  {
+                                    "key": "Purpose",
+                                    "value": "Outline Knowledge Base"
+                                  },
+                                  {
+                                    "key": "Type",
+                                    "value": "CodePipeline"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                              "version": "2.183.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": [
+                                            "s3:Abort*",
+                                            "s3:DeleteObject*",
+                                            "s3:GetBucket*",
+                                            "s3:GetObject*",
+                                            "s3:List*",
+                                            "s3:PutObject",
+                                            "s3:PutObjectLegalHold",
+                                            "s3:PutObjectRetention",
+                                            "s3:PutObjectTagging",
+                                            "s3:PutObjectVersionTagging"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": [
+                                            {
+                                              "Fn::GetAtt": [
+                                                "outlinepipelineArtifactsBucket0B7E7473",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "outlinepipelineArtifactsBucket0B7E7473",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  "/*"
+                                                ]
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Action": [
+                                            "codecommit:CancelUploadArchive",
+                                            "codecommit:GetBranch",
+                                            "codecommit:GetCommit",
+                                            "codecommit:GetUploadArchiveStatus",
+                                            "codecommit:UploadArchive"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": "arn:aws:codecommit:us-east-2:530374903628:outline-dev"
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "outlinepipelineSourceCodePipelineActionRoleDefaultPolicy028C2194",
+                                    "roles": [
+                                      {
+                                        "Ref": "outlinepipelineSourceCodePipelineActionRole1A6F7B99"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                  "version": "2.183.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Policy",
+                              "version": "2.183.0",
+                              "metadata": []
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Role",
+                          "version": "2.183.0",
+                          "metadata": []
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.4.2"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.4.2"
+                }
+              },
+              "EventsRole": {
+                "id": "EventsRole",
+                "path": "outline-cicd-dev/outline-pipeline/EventsRole",
+                "children": {
+                  "ImportEventsRole": {
+                    "id": "ImportEventsRole",
+                    "path": "outline-cicd-dev/outline-pipeline/EventsRole/ImportEventsRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.183.0",
+                      "metadata": []
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "outline-cicd-dev/outline-pipeline/EventsRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "events.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "tags": [
+                          {
+                            "key": "CostCenter",
+                            "value": "Engineering"
+                          },
+                          {
+                            "key": "DeploymentDate",
+                            "value": "Unknown"
+                          },
+                          {
+                            "key": "Environment",
+                            "value": "dev"
+                          },
+                          {
+                            "key": "ManagedBy",
+                            "value": "CDK"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "outline-dev-pipeline"
+                          },
+                          {
+                            "key": "Owner",
+                            "value": "DevOps"
+                          },
+                          {
+                            "key": "Project",
+                            "value": "outline"
+                          },
+                          {
+                            "key": "Purpose",
+                            "value": "Outline Knowledge Base"
+                          },
+                          {
+                            "key": "Type",
+                            "value": "CodePipeline"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.183.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "outline-cicd-dev/outline-pipeline/EventsRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "outline-cicd-dev/outline-pipeline/EventsRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "codepipeline:StartPipelineExecution",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:aws:codepipeline:us-east-2:530374903628:",
+                                        {
+                                          "Ref": "outlinepipeline66DFBBCD"
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "outlinepipelineEventsRoleDefaultPolicyA8376067",
+                            "roles": [
+                              {
+                                "Ref": "outlinepipelineEventsRole308D37B5"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.183.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.183.0",
+                      "metadata": []
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.183.0",
+                  "metadata": []
+                }
+              },
+              "Build": {
+                "id": "Build",
+                "path": "outline-cicd-dev/outline-pipeline/Build",
+                "children": {
+                  "Build": {
+                    "id": "Build",
+                    "path": "outline-cicd-dev/outline-pipeline/Build/Build",
+                    "children": {
+                      "CodePipelineActionRole": {
+                        "id": "CodePipelineActionRole",
+                        "path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole",
+                        "children": {
+                          "ImportCodePipelineActionRole": {
+                            "id": "ImportCodePipelineActionRole",
+                            "path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/ImportCodePipelineActionRole",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.Resource",
+                              "version": "2.183.0",
+                              "metadata": []
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "AWS": "arn:aws:iam::530374903628:root"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "tags": [
+                                  {
+                                    "key": "CostCenter",
+                                    "value": "Engineering"
+                                  },
+                                  {
+                                    "key": "DeploymentDate",
+                                    "value": "Unknown"
+                                  },
+                                  {
+                                    "key": "Environment",
+                                    "value": "dev"
+                                  },
+                                  {
+                                    "key": "ManagedBy",
+                                    "value": "CDK"
+                                  },
+                                  {
+                                    "key": "Name",
+                                    "value": "outline-dev-pipeline"
+                                  },
+                                  {
+                                    "key": "Owner",
+                                    "value": "DevOps"
+                                  },
+                                  {
+                                    "key": "Project",
+                                    "value": "outline"
+                                  },
+                                  {
+                                    "key": "Purpose",
+                                    "value": "Outline Knowledge Base"
+                                  },
+                                  {
+                                    "key": "Type",
+                                    "value": "CodePipeline"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                              "version": "2.183.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": [
+                                            "codebuild:BatchGetBuilds",
+                                            "codebuild:StartBuild",
+                                            "codebuild:StopBuild"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": {
+                                            "Fn::GetAtt": [
+                                              "outlinecodebuildproject45A97EDF",
+                                              "Arn"
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "outlinepipelineBuildCodePipelineActionRoleDefaultPolicy53883B80",
+                                    "roles": [
+                                      {
+                                        "Ref": "outlinepipelineBuildCodePipelineActionRole459F759F"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                  "version": "2.183.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Policy",
+                              "version": "2.183.0",
+                              "metadata": []
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Role",
+                          "version": "2.183.0",
+                          "metadata": []
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.4.2"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.4.2"
+                }
+              },
+              "Deploy": {
+                "id": "Deploy",
+                "path": "outline-cicd-dev/outline-pipeline/Deploy",
+                "children": {
+                  "Deploy": {
+                    "id": "Deploy",
+                    "path": "outline-cicd-dev/outline-pipeline/Deploy/Deploy",
+                    "children": {
+                      "CodePipelineActionRole": {
+                        "id": "CodePipelineActionRole",
+                        "path": "outline-cicd-dev/outline-pipeline/Deploy/Deploy/CodePipelineActionRole",
+                        "children": {
+                          "ImportCodePipelineActionRole": {
+                            "id": "ImportCodePipelineActionRole",
+                            "path": "outline-cicd-dev/outline-pipeline/Deploy/Deploy/CodePipelineActionRole/ImportCodePipelineActionRole",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.Resource",
+                              "version": "2.183.0",
+                              "metadata": []
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "outline-cicd-dev/outline-pipeline/Deploy/Deploy/CodePipelineActionRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "AWS": "arn:aws:iam::530374903628:root"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "tags": [
+                                  {
+                                    "key": "CostCenter",
+                                    "value": "Engineering"
+                                  },
+                                  {
+                                    "key": "DeploymentDate",
+                                    "value": "Unknown"
+                                  },
+                                  {
+                                    "key": "Environment",
+                                    "value": "dev"
+                                  },
+                                  {
+                                    "key": "ManagedBy",
+                                    "value": "CDK"
+                                  },
+                                  {
+                                    "key": "Name",
+                                    "value": "outline-dev-pipeline"
+                                  },
+                                  {
+                                    "key": "Owner",
+                                    "value": "DevOps"
+                                  },
+                                  {
+                                    "key": "Project",
+                                    "value": "outline"
+                                  },
+                                  {
+                                    "key": "Purpose",
+                                    "value": "Outline Knowledge Base"
+                                  },
+                                  {
+                                    "key": "Type",
+                                    "value": "CodePipeline"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                              "version": "2.183.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "outline-cicd-dev/outline-pipeline/Deploy/Deploy/CodePipelineActionRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "outline-cicd-dev/outline-pipeline/Deploy/Deploy/CodePipelineActionRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": [
+                                            "ecs:DescribeServices",
+                                            "ecs:DescribeTaskDefinition",
+                                            "ecs:DescribeTasks",
+                                            "ecs:ListTasks",
+                                            "ecs:RegisterTaskDefinition",
+                                            "ecs:TagResource",
+                                            "ecs:UpdateService"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": "*"
+                                        },
+                                        {
+                                          "Action": "iam:PassRole",
+                                          "Condition": {
+                                            "StringEqualsIfExists": {
+                                              "iam:PassedToService": [
+                                                "ec2.amazonaws.com",
+                                                "ecs-tasks.amazonaws.com"
+                                              ]
+                                            }
+                                          },
+                                          "Effect": "Allow",
+                                          "Resource": "*"
+                                        },
+                                        {
+                                          "Action": [
+                                            "s3:GetBucket*",
+                                            "s3:GetObject*",
+                                            "s3:List*"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": [
+                                            {
+                                              "Fn::GetAtt": [
+                                                "outlinepipelineArtifactsBucket0B7E7473",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "outlinepipelineArtifactsBucket0B7E7473",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  "/*"
+                                                ]
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "outlinepipelineDeployCodePipelineActionRoleDefaultPolicy87D6AA42",
+                                    "roles": [
+                                      {
+                                        "Ref": "outlinepipelineDeployCodePipelineActionRole089A1383"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                  "version": "2.183.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Policy",
+                              "version": "2.183.0",
+                              "metadata": []
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Role",
+                          "version": "2.183.0",
+                          "metadata": []
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.4.2"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.4.2"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_codepipeline.Pipeline",
+              "version": "2.183.0",
+              "metadata": []
+            }
+          },
+          "CodeBuildProjectName": {
+            "id": "CodeBuildProjectName",
+            "path": "outline-cicd-dev/CodeBuildProjectName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.183.0"
+            }
+          },
+          "CodePipelineName": {
+            "id": "CodePipelineName",
+            "path": "outline-cicd-dev/CodePipelineName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.183.0"
+            }
+          },
+          "CodePipelineUrl": {
+            "id": "CodePipelineUrl",
+            "path": "outline-cicd-dev/CodePipelineUrl",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.183.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "outline-cicd-dev/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "outline-cicd-dev/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.183.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.4.2"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "outline-cicd-dev/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.183.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "outline-cicd-dev/CheckBootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnRule",
               "version": "2.183.0"

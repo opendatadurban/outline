@@ -290,9 +290,7 @@
         "ecr:GetDownloadUrlForLayer"
        ],
        "Effect": "Allow",
-       "Resource": {
-        "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
-       }
+       "Resource": "arn:aws:ecr:us-east-2:530374903628:repository/outline-dev"
       },
       {
        "Action": "ecr:GetAuthorizationToken",
@@ -445,42 +443,11 @@
        "Fn::Join": [
         "",
         [
-         {
-          "Fn::Select": [
-           4,
-           {
-            "Fn::Split": [
-             ":",
-             {
-              "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
-             }
-            ]
-           }
-          ]
-         },
-         ".dkr.ecr.",
-         {
-          "Fn::Select": [
-           3,
-           {
-            "Fn::Split": [
-             ":",
-             {
-              "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
-             }
-            ]
-           }
-          ]
-         },
-         ".",
+         "530374903628.dkr.ecr.us-east-2.",
          {
           "Ref": "AWS::URLSuffix"
          },
-         "/",
-         {
-          "Fn::ImportValue": "outline-cicd-dev:ExportsOutputRefoutlinerepository74C23DCD7197F1BE"
-         },
-         ":latest"
+         "/outline-dev:latest"
         ]
        ]
       },
@@ -1135,7 +1102,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Qy27CMBD8Fu7GLaBKXFuq9oJUlHCvFrOYbYwd2WsQsvzvVeJQQk87MzujfczlbLmQzxO4hKnaN1NDO5lqBtUIuITvhCrItDIxMHqxOtgb/ACvgXELoXnHA1licrYz/FecZSCLfqQN2Rr9mRR2oQFmYZwOMq2d/vQutl3rhrMgOMlUOdMn+rpxhtS1owVlEVB55HACCxq9THXPy4gOZYEGApMyDvY7MGAVWX2ey/TatoYUdAuuHezf+l65+YGPfRQY7eC54VF/C14j/10yolnA3QaRXVBgyGqZagUGdgaLuV/8USll60E1ZHVdcvdHPAg5iwqDi758+StyGzmLzZWPzj4t5FLOXiY/gWjqo2U6oaxK/QULZGhZFgIAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11QTW/CMAz9LdxDNkCTuA6m7YI01HKfTDCZ15BUsQtCUf771AYG7PQ+/Ow4nurJfKafR3Disdk1Y0dbnWoB0yg48VdCwzotXceCUS33/krfIVoQ3AA3b7gnT0LB94H/TvAC5DHeeZfeGuORDPZNF5oVmqgrbAOThHheAKNywbJOq2A/YujaPn3lWREcdKqCG4YMuA6OzLmXhWXFaCIKH8CDxahTPejyas+yQgcsZFyA3RYceEPeHqc6vbatIwP9zqsAu8VQK2d40Pc5YkF/yVz5XX0D0aL8/eROZgW3GHQS2IAjb3WqDTjYOizhYfFHp8AmgmnI27r03Q7xYOSsKuTQxXL4z07aTrJan+U7+KeZnuvJy+iHicax80IH1FXBX5OXKQ4pAgAA"
    },
    "Metadata": {
     "aws:cdk:path": "outline-application-dev/CDKMetadata/Default"
@@ -1182,41 +1149,11 @@
     "Fn::Join": [
      "",
      [
-      {
-       "Fn::Select": [
-        4,
-        {
-         "Fn::Split": [
-          ":",
-          {
-           "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
-          }
-         ]
-        }
-       ]
-      },
-      ".dkr.ecr.",
-      {
-       "Fn::Select": [
-        3,
-        {
-         "Fn::Split": [
-          ":",
-          {
-           "Fn::ImportValue": "outline-cicd-dev:ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
-          }
-         ]
-        }
-       ]
-      },
-      ".",
+      "530374903628.dkr.ecr.us-east-2.",
       {
        "Ref": "AWS::URLSuffix"
       },
-      "/",
-      {
-       "Fn::ImportValue": "outline-cicd-dev:ExportsOutputRefoutlinerepository74C23DCD7197F1BE"
-      }
+      "/outline-dev"
      ]
     ]
    },
@@ -1240,6 +1177,25 @@
    },
    "Export": {
     "Name": "outline-dev-utils-secret-arn"
+   }
+  },
+  "ExportsOutputRefoutlinecluster82FEBE5121F5D9C1": {
+   "Value": {
+    "Ref": "outlinecluster82FEBE51"
+   },
+   "Export": {
+    "Name": "outline-application-dev:ExportsOutputRefoutlinecluster82FEBE5121F5D9C1"
+   }
+  },
+  "ExportsOutputFnGetAttoutlineserviceServiceDB8F6A21Name2F63B52F": {
+   "Value": {
+    "Fn::GetAtt": [
+     "outlineserviceServiceDB8F6A21",
+     "Name"
+    ]
+   },
+   "Export": {
+    "Name": "outline-application-dev:ExportsOutputFnGetAttoutlineserviceServiceDB8F6A21Name2F63B52F"
    }
   }
  },

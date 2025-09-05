@@ -678,255 +678,6 @@
       },
       "displayName": "outline-database-dev"
     },
-    "outline-cicd-dev.assets": {
-      "type": "cdk:asset-manifest",
-      "properties": {
-        "file": "outline-cicd-dev.assets.json",
-        "requiresBootstrapStackVersion": 6,
-        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
-      }
-    },
-    "outline-cicd-dev": {
-      "type": "aws:cloudformation:stack",
-      "environment": "aws://530374903628/us-east-2",
-      "properties": {
-        "templateFile": "outline-cicd-dev.template.json",
-        "terminationProtection": false,
-        "tags": {
-          "CostCenter": "Engineering",
-          "DeploymentDate": "Unknown",
-          "Environment": "dev",
-          "ManagedBy": "CDK",
-          "Owner": "DevOps",
-          "Project": "outline",
-          "Purpose": "Outline Knowledge Base"
-        },
-        "validateOnSynth": false,
-        "assumeRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-deploy-role-530374903628-us-east-2",
-        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-cfn-exec-role-530374903628-us-east-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-530374903628-us-east-2/72a1773b78c59e6faaeabc255ddfd0aa8e3f4400e8adb8ba6cb189a845b3df55.json",
-        "requiresBootstrapStackVersion": 6,
-        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
-        "additionalDependencies": [
-          "outline-cicd-dev.assets"
-        ],
-        "lookupRole": {
-          "arn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-lookup-role-530374903628-us-east-2",
-          "requiresBootstrapStackVersion": 8,
-          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
-        }
-      },
-      "dependencies": [
-        "outline-network-dev",
-        "outline-database-dev",
-        "outline-cicd-dev.assets"
-      ],
-      "metadata": {
-        "/outline-cicd-dev": [
-          {
-            "type": "aws:cdk:stack-tags",
-            "data": [
-              {
-                "Key": "CostCenter",
-                "Value": "Engineering"
-              },
-              {
-                "Key": "DeploymentDate",
-                "Value": "Unknown"
-              },
-              {
-                "Key": "Environment",
-                "Value": "dev"
-              },
-              {
-                "Key": "ManagedBy",
-                "Value": "CDK"
-              },
-              {
-                "Key": "Owner",
-                "Value": "DevOps"
-              },
-              {
-                "Key": "Project",
-                "Value": "outline"
-              },
-              {
-                "Key": "Purpose",
-                "Value": "Outline Knowledge Base"
-              }
-            ]
-          }
-        ],
-        "/outline-cicd-dev/outline-repository/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinerepository74C23DCD"
-          }
-        ],
-        "/outline-cicd-dev/outline-codebuild-logs/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinecodebuildlogs323DA7A5"
-          }
-        ],
-        "/outline-cicd-dev/outline-codebuild-service-role/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinecodebuildservicerole65BEF9A0"
-          }
-        ],
-        "/outline-cicd-dev/outline-codebuild-service-role/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinecodebuildserviceroleDefaultPolicy5BCF1357"
-          }
-        ],
-        "/outline-cicd-dev/outline-codebuild-project/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinecodebuildproject45A97EDF"
-          }
-        ],
-        "/outline-cicd-dev/outline-codecommit-repo/outlinecicddevoutlinepipeline8AE70085-main-EventRule/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinecodecommitrepooutlinecicddevoutlinepipeline8AE70085mainEventRule6A7DA2B1"
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline": [
-          {
-            "type": "aws:cdk:warning",
-            "data": "V1 pipeline type is implicitly selected when `pipelineType` is not set. If you want to use V2 type, set `PipelineType.V2`. [ack: @aws-cdk/aws-codepipeline:unspecifiedPipelineType]",
-            "trace": [
-              "Annotations.addMessage (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\jsii-kernel-q9wA2j\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
-              "Annotations.addWarningV2 (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\jsii-kernel-q9wA2j\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
-              "new Pipeline (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\jsii-kernel-q9wA2j\\node_modules\\aws-cdk-lib\\aws-codepipeline\\lib\\pipeline.js:1:7315)",
-              "Kernel._Kernel_create (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmp099pdq_3\\lib\\program.js:14788:25)",
-              "Kernel.create (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmp099pdq_3\\lib\\program.js:14458:93)",
-              "KernelHost.processRequest (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmp099pdq_3\\lib\\program.js:16378:36)",
-              "KernelHost.run (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmp099pdq_3\\lib\\program.js:16338:22)",
-              "Immediate._onImmediate (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmp099pdq_3\\lib\\program.js:16339:46)",
-              "process.processImmediate (node:internal/timers:491:21)"
-            ]
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline/ArtifactsBucket/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinepipelineArtifactsBucket0B7E7473"
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline/ArtifactsBucket/Policy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinepipelineArtifactsBucketPolicy94008835"
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline/Role/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinepipelineRole0CCFE4B3"
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline/Role/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinepipelineRoleDefaultPolicyB5D6CAAE"
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinepipeline66DFBBCD"
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinepipelineSourceCodePipelineActionRole1A6F7B99"
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinepipelineSourceCodePipelineActionRoleDefaultPolicy028C2194"
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline/EventsRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinepipelineEventsRole308D37B5"
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline/EventsRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinepipelineEventsRoleDefaultPolicyA8376067"
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinepipelineBuildCodePipelineActionRole459F759F"
-          }
-        ],
-        "/outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "outlinepipelineBuildCodePipelineActionRoleDefaultPolicy53883B80"
-          }
-        ],
-        "/outline-cicd-dev/CodeBuildProjectName": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CodeBuildProjectName"
-          }
-        ],
-        "/outline-cicd-dev/CodePipelineName": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CodePipelineName"
-          }
-        ],
-        "/outline-cicd-dev/CodePipelineUrl": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CodePipelineUrl"
-          }
-        ],
-        "/outline-cicd-dev/CDKMetadata/Default": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CDKMetadata"
-          }
-        ],
-        "/outline-cicd-dev/Exports/Output{\"Fn::GetAtt\":[\"outlinerepository74C23DCD\",\"Arn\"]}": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExportsOutputFnGetAttoutlinerepository74C23DCDArn59BEC0DF"
-          }
-        ],
-        "/outline-cicd-dev/Exports/Output{\"Ref\":\"outlinerepository74C23DCD\"}": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ExportsOutputRefoutlinerepository74C23DCD7197F1BE"
-          }
-        ],
-        "/outline-cicd-dev/BootstrapVersion": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "BootstrapVersion"
-          }
-        ],
-        "/outline-cicd-dev/CheckBootstrapVersion": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CheckBootstrapVersion"
-          }
-        ]
-      },
-      "displayName": "outline-cicd-dev"
-    },
     "outline-application-dev.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
@@ -953,7 +704,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-deploy-role-530374903628-us-east-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-cfn-exec-role-530374903628-us-east-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-530374903628-us-east-2/3077f82cdb80e15408d2c36f11b5786bda1196c375ffdfdd897fd8b816e0d7a1.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-530374903628-us-east-2/29c9d59dcbf04d3f7ad41dafd1e1a24d86670f67de42bbd36392b0b5ce687393.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -968,7 +719,6 @@
       "dependencies": [
         "outline-network-dev",
         "outline-database-dev",
-        "outline-cicd-dev",
         "outline-application-dev.assets"
       ],
       "metadata": {
@@ -1151,6 +901,18 @@
             "data": "CDKMetadata"
           }
         ],
+        "/outline-application-dev/Exports/Output{\"Ref\":\"outlinecluster82FEBE51\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefoutlinecluster82FEBE5121F5D9C1"
+          }
+        ],
+        "/outline-application-dev/Exports/Output{\"Fn::GetAtt\":[\"outlineserviceServiceDB8F6A21\",\"Name\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttoutlineserviceServiceDB8F6A21Name2F63B52F"
+          }
+        ],
         "/outline-application-dev/BootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
@@ -1165,6 +927,248 @@
         ]
       },
       "displayName": "outline-application-dev"
+    },
+    "outline-cicd-dev.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "outline-cicd-dev.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "outline-cicd-dev": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://530374903628/us-east-2",
+      "properties": {
+        "templateFile": "outline-cicd-dev.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "CostCenter": "Engineering",
+          "DeploymentDate": "Unknown",
+          "Environment": "dev",
+          "ManagedBy": "CDK",
+          "Owner": "DevOps",
+          "Project": "outline",
+          "Purpose": "Outline Knowledge Base"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-deploy-role-530374903628-us-east-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-cfn-exec-role-530374903628-us-east-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-530374903628-us-east-2/d0946f7dd6f180abe4f63623e625463c5390a53e9522b3ca83c6176b080aa373.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "outline-cicd-dev.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::530374903628:role/cdk-hnb659fds-lookup-role-530374903628-us-east-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "outline-application-dev",
+        "outline-cicd-dev.assets"
+      ],
+      "metadata": {
+        "/outline-cicd-dev": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "CostCenter",
+                "Value": "Engineering"
+              },
+              {
+                "Key": "DeploymentDate",
+                "Value": "Unknown"
+              },
+              {
+                "Key": "Environment",
+                "Value": "dev"
+              },
+              {
+                "Key": "ManagedBy",
+                "Value": "CDK"
+              },
+              {
+                "Key": "Owner",
+                "Value": "DevOps"
+              },
+              {
+                "Key": "Project",
+                "Value": "outline"
+              },
+              {
+                "Key": "Purpose",
+                "Value": "Outline Knowledge Base"
+              }
+            ]
+          }
+        ],
+        "/outline-cicd-dev/outline-codebuild-logs/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecodebuildlogs323DA7A5"
+          }
+        ],
+        "/outline-cicd-dev/outline-codebuild-service-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecodebuildservicerole65BEF9A0"
+          }
+        ],
+        "/outline-cicd-dev/outline-codebuild-service-role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecodebuildserviceroleDefaultPolicy5BCF1357"
+          }
+        ],
+        "/outline-cicd-dev/outline-codebuild-project/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecodebuildproject45A97EDF"
+          }
+        ],
+        "/outline-cicd-dev/outline-codecommit-repo/outlinecicddevoutlinepipeline8AE70085-main-EventRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinecodecommitrepooutlinecicddevoutlinepipeline8AE70085mainEventRule6A7DA2B1"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "V1 pipeline type is implicitly selected when `pipelineType` is not set. If you want to use V2 type, set `PipelineType.V2`. [ack: @aws-cdk/aws-codepipeline:unspecifiedPipelineType]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\jsii-kernel-8vdFXN\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\jsii-kernel-8vdFXN\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new Pipeline (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\jsii-kernel-8vdFXN\\node_modules\\aws-cdk-lib\\aws-codepipeline\\lib\\pipeline.js:1:7315)",
+              "Kernel._Kernel_create (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmpqo1ft0h3\\lib\\program.js:14788:25)",
+              "Kernel.create (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmpqo1ft0h3\\lib\\program.js:14458:93)",
+              "KernelHost.processRequest (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmpqo1ft0h3\\lib\\program.js:16378:36)",
+              "KernelHost.run (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmpqo1ft0h3\\lib\\program.js:16338:22)",
+              "Immediate._onImmediate (C:\\Users\\wcmoo\\AppData\\Local\\Temp\\tmpqo1ft0h3\\lib\\program.js:16339:46)",
+              "process.processImmediate (node:internal/timers:491:21)"
+            ]
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/ArtifactsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineArtifactsBucket0B7E7473"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/ArtifactsBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineArtifactsBucketPolicy94008835"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineRole0CCFE4B3"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineRoleDefaultPolicyB5D6CAAE"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipeline66DFBBCD"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineSourceCodePipelineActionRole1A6F7B99"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Source/Source/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineSourceCodePipelineActionRoleDefaultPolicy028C2194"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/EventsRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineEventsRole308D37B5"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/EventsRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineEventsRoleDefaultPolicyA8376067"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineBuildCodePipelineActionRole459F759F"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Build/Build/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineBuildCodePipelineActionRoleDefaultPolicy53883B80"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Deploy/Deploy/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineDeployCodePipelineActionRole089A1383"
+          }
+        ],
+        "/outline-cicd-dev/outline-pipeline/Deploy/Deploy/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "outlinepipelineDeployCodePipelineActionRoleDefaultPolicy87D6AA42"
+          }
+        ],
+        "/outline-cicd-dev/CodeBuildProjectName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CodeBuildProjectName"
+          }
+        ],
+        "/outline-cicd-dev/CodePipelineName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CodePipelineName"
+          }
+        ],
+        "/outline-cicd-dev/CodePipelineUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CodePipelineUrl"
+          }
+        ],
+        "/outline-cicd-dev/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/outline-cicd-dev/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/outline-cicd-dev/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "outline-cicd-dev"
     },
     "Tree": {
       "type": "cdk:tree",

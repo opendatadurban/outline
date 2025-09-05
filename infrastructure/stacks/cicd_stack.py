@@ -38,15 +38,13 @@ class CiCdStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, 
                  environment: str, project_name: str,
                  ecs_cluster: ecs.Cluster,
-                 ecs_service: ecs.FargateService,
-                 ecr_repository: ecr.Repository, **kwargs) -> None:
+                 ecs_service: ecs.FargateService, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
         
         self.env_name = environment
         self.project_name = project_name
         self.ecs_cluster = ecs_cluster
         self.ecs_service = ecs_service
-        self.ecr_repository = ecr_repository
         
         # Create CodeBuild project
         self._create_codebuild_project()
